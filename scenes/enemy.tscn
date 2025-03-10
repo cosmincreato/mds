@@ -1,17 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://sjsau5541004"]
 
-[ext_resource type="Script" uid="uid://1vwy471dr2to" path="res://scripts/enemy.gd" id="1_4ra3w"]
-[ext_resource type="Script" uid="uid://dpkhuk08hrkp5" path="res://scripts/enemy_node.gd" id="1_5uy6h"]
+[ext_resource type="Script" uid="uid://dpkhuk08hrkp5" path="res://scripts/enemy.gd" id="1_5uy6h"]
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_md0e3"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_bar.tscn" id="2_4ra3w"]
+[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scenes/character_body_2d.gd" id="2_5uy6h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
 
 [node name="Enemy" type="Node2D"]
+modulate = Color(0.616149, 0, 0.0920914, 1)
 script = ExtResource("1_5uy6h")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = ExtResource("1_4ra3w")
+script = ExtResource("2_5uy6h")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 texture = ExtResource("1_md0e3")
