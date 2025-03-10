@@ -6,7 +6,7 @@
 [node name="main_scene" type="Node"]
 
 [node name="Base" parent="." instance=ExtResource("3_gubc5")]
-position = Vector2(800, 200)
+position = Vector2(818, 482)
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("seeking") instance=ExtResource("1_7ykc4")]
 position = Vector2(162, 334)
