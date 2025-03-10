@@ -1,13 +1,10 @@
-extends CharacterBody2D
+extends Node2D
 
+# Nodul catre care se va deplasa inamicul
+@export var seeking : Node2D = null
 @export var speed = 100
-var parent : Node2D
 
 func _ready() -> void:
-	parent = get_parent()
-
-func _physics_process(delta: float) -> void:
-	if parent:
-		var direction = global_position.direction_to(parent.seeking.position)
-		velocity = direction * speed
-		move_and_slide()
+	var body : CharacterBody2D = $CharacterBody2D
+	body.set_seeking(seeking)
+	body.set_speed(speed)
