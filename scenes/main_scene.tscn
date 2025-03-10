@@ -1,12 +1,62 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctfc378nlnrsy"]
+[gd_scene load_steps=4 format=3 uid="uid://ctfc378nlnrsy"]
 
-[ext_resource type="PackedScene" uid="uid://sjsau5541004" path="res://scenes/enemy.tscn" id="1_7ykc4"]
+[ext_resource type="Script" uid="uid://cjfvvhd5dbebq" path="res://scripts/main_scene.gd" id="1_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://cp6j2eswm0vn1" path="res://scenes/base.tscn" id="3_gubc5"]
+[ext_resource type="PackedScene" uid="uid://dq6e0nvgd0fr4" path="res://scenes/spawn_point.tscn" id="4_pu3yx"]
 
-[node name="main_scene" type="Node"]
+[node name="MainScene" type="Node"]
+script = ExtResource("1_pu3yx")
 
 [node name="Base" parent="." instance=ExtResource("3_gubc5")]
 position = Vector2(563, 305)
+
+
+[node name="Camera2D" type="Camera2D" parent="Base"]
+zoom = Vector2(0.3, 0.3)
+
+[node name="SpawnManager" type="Node2D" parent="."]
+
+[node name="SpawnPoint" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(-1300, 1100)
+
+[node name="SpawnPoint2" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(-1300, 500)
+
+[node name="SpawnPoint3" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(-1300, -100)
+
+[node name="SpawnPoint4" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(2900, -100)
+
+[node name="SpawnPoint5" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(2900, 500)
+
+[node name="SpawnPoint6" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(2900, 1100)
+
+[node name="SpawnPoint7" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(-400, -800)
+
+[node name="SpawnPoint8" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(750, -800)
+
+[node name="SpawnPoint9" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(1900, -800)
+
+[node name="SpawnPoint10" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(750, 1750)
+
+[node name="SpawnPoint11" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(1900, 1750)
+
+[node name="SpawnPoint12" parent="SpawnManager" instance=ExtResource("4_pu3yx")]
+position = Vector2(-400, 1750)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("seeking") instance=ExtResource("1_7ykc4")]
 position = Vector2(145, 467)
