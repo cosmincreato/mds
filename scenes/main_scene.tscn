@@ -11,8 +11,3 @@ position = Vector2(563, 305)
 [node name="Enemy" parent="." node_paths=PackedStringArray("seeking") instance=ExtResource("1_7ykc4")]
 position = Vector2(145, 467)
 seeking = NodePath("../Base")
-
-[node name="Enemy2" parent="." node_paths=PackedStringArray("seeking") instance=ExtResource("1_7ykc4")]
-position = Vector2(955, 178)
-seeking = NodePath("../Base")
-speed = 200
