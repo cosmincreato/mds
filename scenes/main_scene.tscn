@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctfc378nlnrsy"]
+
+[ext_resource type="PackedScene" uid="uid://sjsau5541004" path="res://scenes/enemy.tscn" id="1_7ykc4"]
+[ext_resource type="PackedScene" uid="uid://cp6j2eswm0vn1" path="res://scenes/base.tscn" id="3_gubc5"]
+
+[node name="main_scene" type="Node"]
+
+[node name="Base" parent="." instance=ExtResource("3_gubc5")]
+position = Vector2(800, 200)
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("seeking") instance=ExtResource("1_7ykc4")]
+position = Vector2(162, 334)
+seeking = NodePath("../Base")
