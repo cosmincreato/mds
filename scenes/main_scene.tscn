@@ -8,7 +8,7 @@
 script = ExtResource("1_pu3yx")
 
 [node name="Base" parent="." instance=ExtResource("3_gubc5")]
-position = Vector2(563, 305)
+position = Vector2(800, 450)
 
 [node name="Camera2D" type="Camera2D" parent="Base"]
 zoom = Vector2(0.3, 0.3)

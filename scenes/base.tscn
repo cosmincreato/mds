@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cp6j2eswm0vn1"]
 
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_pvqg0"]
-[ext_resource type="Script" uid="uid://dubhoc6tt3kt6" path="res://scripts/base.gd" id="1_t45w4"]
+[ext_resource type="Script" path="res://scripts/base.gd" id="1_t45w4"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_bar.tscn" id="2_baglu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t45w4"]
