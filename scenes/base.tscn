@@ -1,14 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://cp6j2eswm0vn1"]
 
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_pvqg0"]
-[ext_resource type="Script" path="res://scripts/base.gd" id="1_t45w4"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_bar.tscn" id="2_baglu"]
+[ext_resource type="Script" uid="uid://csmmfw3uu2d4p" path="res://scripts/area_2d.gd" id="4_h5ip5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t45w4"]
 size = Vector2(140, 137)
 
 [node name="Base" type="Node2D"]
-script = ExtResource("1_t45w4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_pvqg0")
@@ -16,10 +15,11 @@ texture = ExtResource("1_pvqg0")
 [node name="HealthBar" parent="." instance=ExtResource("2_baglu")]
 
 [node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("4_h5ip5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 1.5)
 scale = Vector2(1.1, 1.1)
 shape = SubResource("RectangleShape2D_t45w4")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_area_2d_body_entered"]

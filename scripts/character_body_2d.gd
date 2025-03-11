@@ -1,19 +1,14 @@
 extends CharacterBody2D
 
-var seeking : Node2D = null
-var speed : int = 100
-
-func _ready() -> void:
-	if seeking:
-		print(seeking.name)
+var parent : Node2D = null
 		
 func _physics_process(_delta: float) -> void:
-	var dir = global_position.direction_to(seeking.global_position)
-	velocity = dir * speed
+	var dir = global_position.direction_to(parent.seeking.global_position)
+	velocity = dir * parent.speed
 	move_and_slide()
 
-func set_seeking(target : Node2D) -> void:
-	seeking = target
+
+# Ii vom da nodului toate proprietatile de care are nevoie
+func set_dependencies(p: Node2D):
+	self.parent = p
 	
-func set_speed(value : int) -> void:
-	speed = value
