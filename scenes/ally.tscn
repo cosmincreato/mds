@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b440y2dak6lja"]
+
+[ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_l1mpe"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_bar.tscn" id="2_lx12y"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack.tscn" id="3_20huh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
+
+[node name="Ally" type="Node2D" groups=["allies"]]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(0, 1, 0, 1)
+texture = ExtResource("1_l1mpe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+scale = Vector2(6.5, 6.5)
+shape = SubResource("RectangleShape2D_a0l60")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_lx12y")]
+
+[node name="Attack" parent="." instance=ExtResource("3_20huh")]

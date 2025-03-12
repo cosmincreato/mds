@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cp6j2eswm0vn1"]
+[gd_scene load_steps=6 format=3 uid="uid://cp6j2eswm0vn1"]
 
+[ext_resource type="Script" uid="uid://befe606ow32q5" path="res://scripts/base.gd" id="1_h5ip5"]
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_pvqg0"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_bar.tscn" id="2_baglu"]
 [ext_resource type="Script" uid="uid://csmmfw3uu2d4p" path="res://scripts/area_2d.gd" id="4_h5ip5"]
@@ -8,6 +9,7 @@
 size = Vector2(140, 137)
 
 [node name="Base" type="Node2D"]
+script = ExtResource("1_h5ip5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_pvqg0")
