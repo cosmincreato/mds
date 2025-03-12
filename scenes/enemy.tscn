@@ -9,7 +9,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
 
 [node name="Enemy" type="Node2D" groups=["enemies"]]
-modulate = Color(0.616149, 0, 0.0920914, 1)
 script = ExtResource("1_5uy6h")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
@@ -22,6 +21,11 @@ texture = ExtResource("1_md0e3")
 scale = Vector2(6.5, 6.5)
 shape = SubResource("RectangleShape2D_5uy6h")
 
-[node name="HealthBar" parent="." instance=ExtResource("2_4ra3w")]
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("2_4ra3w")]
+offset_top = -100.0
+offset_bottom = -100.0
 
 [node name="Attack" parent="." instance=ExtResource("5_c4w8v")]
+
+[connection signal="damage_taken" from="CharacterBody2D/HealthBar" to="." method="_on_health_bar_damage_taken"]
+[connection signal="died" from="CharacterBody2D/HealthBar" to="." method="_on_health_bar_died"]
