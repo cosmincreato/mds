@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctfc378nlnrsy"]
+[gd_scene load_steps=5 format=3 uid="uid://ctfc378nlnrsy"]
 
 [ext_resource type="Script" uid="uid://cjfvvhd5dbebq" path="res://scripts/main_scene.gd" id="1_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://cp6j2eswm0vn1" path="res://scenes/base.tscn" id="3_gubc5"]
+[ext_resource type="Script" uid="uid://cwtplco0hlnba" path="res://scripts/canvas.gd" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://dq6e0nvgd0fr4" path="res://scenes/spawn_point.tscn" id="4_pu3yx"]
 
 [node name="MainScene" type="Node"]
@@ -54,5 +55,8 @@ position = Vector2(-400, 1750)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="Canvas" type="Node2D" parent="."]
+script = ExtResource("4_gubc5")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
