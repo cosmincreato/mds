@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://sjsau5541004"]
+
+[ext_resource type="Script" uid="uid://dpkhuk08hrkp5" path="res://scripts/enemy.gd" id="1_5uy6h"]
+[ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_md0e3"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_bar.tscn" id="2_4ra3w"]
+[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/character_body_2d.gd" id="2_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack.tscn" id="5_c4w8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
+
+[node name="Enemy" type="Node2D" groups=["enemies"]]
+modulate = Color(0.616149, 0, 0.0920914, 1)
+script = ExtResource("1_5uy6h")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_5uy6h")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_md0e3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+scale = Vector2(6.5, 6.5)
+shape = SubResource("RectangleShape2D_5uy6h")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_4ra3w")]
+
+[node name="Attack" parent="." instance=ExtResource("5_c4w8v")]
