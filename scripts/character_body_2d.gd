@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var parent : Node2D = null
-var speed : int = 300
+@export var speed : int = 300
 		
 func _physics_process(_delta: float) -> void:
 	var dir = global_position.direction_to(parent.seeking.global_position)

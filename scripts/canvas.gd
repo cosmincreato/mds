@@ -26,6 +26,6 @@ func _draw() -> void:
 		mouse_position.y -= sprite_texture.get_height()/2
 		draw_texture(sprite_texture, mouse_position)
 		
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_selected:
 		queue_redraw()

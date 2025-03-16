@@ -1,14 +1,16 @@
 extends Node
 
+signal draw_sprite(texture)
+signal remove_sprite
+
 @onready var spawn_manager: Node2D = $SpawnManager
 @onready var timer: Timer = $Timer
 @onready var base: Node2D = $Base
+
 @onready var canvas: Node2D = find_child("Canvas")
 var enemy_scene = preload("res://scenes/enemies/enemy.tscn")
 var allies_dir = DirAccess.open("res://scenes/allies/")
 var allies_dictionary: Dictionary = {}
-signal draw_sprite(texture)
-signal remove_sprite
 
 func _ready() -> void:
 	for child in get_children():

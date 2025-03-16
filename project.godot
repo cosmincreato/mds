@@ -15,6 +15,14 @@ run/main_scene="uid://ctfc378nlnrsy"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/base/icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "purple",
+"res://scenes/": "orange",
+"res://scripts/": "blue"
+}
+
 [global_group]
 
 enemies=""
