@@ -1,15 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b440y2dak6lja"]
+[gd_scene load_steps=7 format=3 uid="uid://b440y2dak6lja"]
 
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_l1mpe"]
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack_component.tscn" id="3_20huh"]
-[ext_resource type="Script" uid="uid://cuiiigmkwokve" path="res://scripts/health_component.gd" id="3_xx1w2"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_component.tscn" id="3_kjwhc"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/hurtbox.tscn" id="4_kjwhc"]
+[ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/cost_component.tscn" id="5_mthl8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
 
 [node name="Ally" type="Node2D" groups=["allies"]]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("4_kjwhc")]
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 modulate = Color(0, 1, 0, 1)
@@ -21,8 +24,6 @@ shape = SubResource("RectangleShape2D_a0l60")
 
 [node name="AttackComponent" parent="." instance=ExtResource("3_20huh")]
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_xx1w2")
-metadata/_custom_type_script = "uid://cuiiigmkwokve"
+[node name="HealthComponent" parent="." instance=ExtResource("3_kjwhc")]
 
-[node name="Hurtbox" parent="." instance=ExtResource("4_kjwhc")]
+[node name="CostComponent" parent="." instance=ExtResource("5_mthl8")]

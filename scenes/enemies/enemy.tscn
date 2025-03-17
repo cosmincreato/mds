@@ -16,8 +16,10 @@ script = ExtResource("1_5uy6h")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("2_38ino")
+speed = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(1, 0, 0, 1)
 texture = ExtResource("1_6xk8f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
@@ -26,11 +28,11 @@ shape = SubResource("RectangleShape2D_8e3ao")
 
 [node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("4_nb6gf")]
 
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("7_jt03m")]
+
 [node name="AttackComponent" parent="." instance=ExtResource("5_jt03m")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_n7575")]
-
-[node name="Hurtbox" parent="." instance=ExtResource("7_jt03m")]
 
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
