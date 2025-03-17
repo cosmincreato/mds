@@ -4,7 +4,8 @@ class_name Base extends Node2D
 @onready var health_bar : HealthBar = get_node_or_null("HealthBar")
 
 func _ready() -> void:
-	health_bar.max_value = health_component.max_health
+	if health_bar:
+		health_bar.max_value = health_component.max_health
 
 # Cand Hurtbox semnaleaza ca cineva a intrat in coliziune cu baza
 func _on_hurtbox_body_entered(body: Node2D) -> void:
@@ -19,7 +20,8 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 # Cand HealthComponent semnaleaza ca baza ca si-a luat damage
 func _on_health_component_damage_taken(new_health: int, _amount: int) -> void:
-	health_bar.update(new_health)
+	if health_bar:
+		health_bar.update(new_health)
 
 # Cand HealthComponent semnaleaza ca baza a fost distrusa
 func _on_health_component_died() -> void:
