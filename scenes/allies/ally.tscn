@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_l1mpe"]
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack_component.tscn" id="3_20huh"]
-[ext_resource type="Script" uid="uid://cuiiigmkwokve" path="res://scripts/health_component.gd" id="3_xx1w2"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_component.tscn" id="3_kjwhc"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/hurtbox.tscn" id="4_kjwhc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
@@ -21,8 +21,6 @@ shape = SubResource("RectangleShape2D_a0l60")
 
 [node name="AttackComponent" parent="." instance=ExtResource("3_20huh")]
 
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("3_xx1w2")
-metadata/_custom_type_script = "uid://cuiiigmkwokve"
+[node name="HealthComponent" parent="." instance=ExtResource("3_kjwhc")]
 
 [node name="Hurtbox" parent="." instance=ExtResource("4_kjwhc")]

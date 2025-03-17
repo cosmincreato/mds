@@ -1,10 +1,24 @@
-extends Node2D
+class_name Canvas extends Control
 
-signal allie_spawned(mouse_x, mouse_y)
+signal ally_spawned(mouse_x : float, mouse_y : float, type : int)
 
+var texture_rect : TextureRect = get_node_or_null("TextureRect")
 var sprite_texture = null
-var parent: Node = null
 var is_selected: bool = false
+
+### Public
+
+func draw_sprite(texture) -> void:
+	sprite_texture = texture
+	is_selected = true
+	queue_redraw()
+	
+func remove_sprite() -> void:
+	sprite_texture = null
+	is_selected = false
+	queue_redraw()
+
+### Private
 
 #TODO Repara pozitionarea ciudata a texturii.
 func _input(event: InputEvent) -> void:
@@ -12,20 +26,7 @@ func _input(event: InputEvent) -> void:
 		var mouse_position = get_local_mouse_position()
 		mouse_position.x -= sprite_texture.get_width()/128
 		mouse_position.y -= sprite_texture.get_height()/128
-		allie_spawned.emit(mouse_position.x, mouse_position.y, 1)
-
-func set_dependencies(p: Node) -> void:
-	self.parent = p
-
-func _on_draw_sprite(texture) -> void:
-	sprite_texture = texture
-	is_selected = true
-	queue_redraw()
-	
-func _on_remove_sprite() -> void:
-	sprite_texture = null
-	is_selected = false
-	queue_redraw()
+		ally_spawned.emit(mouse_position.x, mouse_position.y, 1)
 
 # Desenam pe canvas textura unitatii pe care dorim sa o plasam
 func _draw() -> void:

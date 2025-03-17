@@ -6,6 +6,7 @@ class_name Base extends Node2D
 func _ready() -> void:
 	if health_bar:
 		health_bar.max_value = health_component.max_health
+		
 
 # Cand Hurtbox semnaleaza ca cineva a intrat in coliziune cu baza
 func _on_hurtbox_body_entered(body: Node2D) -> void:

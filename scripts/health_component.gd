@@ -10,7 +10,7 @@ var health : int
 func _ready() -> void:
 	health = max_health
 
-### Metode publice
+### Public
 
 func take_damage(amount : int) -> void:
 	health -= amount

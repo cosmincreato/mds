@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctfc378nlnrsy"]
+[gd_scene load_steps=6 format=3 uid="uid://ctfc378nlnrsy"]
 
 [ext_resource type="Script" uid="uid://cjfvvhd5dbebq" path="res://scripts/main_scene.gd" id="1_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://cp6j2eswm0vn1" path="res://scenes/base.tscn" id="3_gubc5"]
 [ext_resource type="Script" uid="uid://cwtplco0hlnba" path="res://scripts/canvas.gd" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://dq6e0nvgd0fr4" path="res://scenes/spawn_point.tscn" id="4_pu3yx"]
+[ext_resource type="Texture2D" uid="uid://cwt4st7is2mpe" path="res://assets/enemy/icon.svg" id="5_gubc5"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_pu3yx")
@@ -56,7 +57,16 @@ position = Vector2(-400, 1750)
 wait_time = 3.0
 autostart = true
 
-[node name="Canvas" type="Node2D" parent="."]
+[node name="Canvas" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("4_gubc5")
 
+[node name="TextureRect" type="TextureRect" parent="Canvas"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_gubc5")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="ally_spawned" from="Canvas" to="." method="_on_canvas_ally_spawned"]
