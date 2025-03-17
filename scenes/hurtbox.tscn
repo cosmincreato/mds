@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://blnbp4jhyld43"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t45w4"]
+size = Vector2(118.182, 118.182)
+
+[node name="Hurtbox" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+scale = Vector2(1.1, 1.1)
+shape = SubResource("RectangleShape2D_t45w4")

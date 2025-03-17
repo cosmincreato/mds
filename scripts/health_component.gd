@@ -1,14 +1,31 @@
-extends Node
+class_name HealthComponent extends Node
 
-signal health_changed(health)
+signal damage_taken(new_health : int, amount : int)
+signal healed(new_health : int, amount : int)
+signal died()
 
-@export var max_health: int = 1000
-var health: int
+@export var max_health : int = 100
+var health : int
 
 func _ready() -> void:
 	health = max_health
 
-# Poate functiona drept damage sau heal
-func set_health(amount: int) -> void:
-	health = amount
-	emit_signal("health_changed", health)
+### Metode publice
+
+func take_damage(amount : int) -> void:
+	health -= amount
+	
+	if health <= 0:
+		health = 0
+		emit_signal("died")
+	
+	emit_signal("damage_taken", health, amount)
+		
+func heal(amount : int) -> void:
+	health += amount
+	
+	if health > max_health:
+		health = max_health
+
+	emit_signal("healed", health, amount)
+	

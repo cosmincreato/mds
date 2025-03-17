@@ -1,27 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://sjsau5541004"]
+[gd_scene load_steps=9 format=3 uid="uid://b66yj2jk6m2x5"]
 
 [ext_resource type="Script" uid="uid://dpkhuk08hrkp5" path="res://scripts/enemy.gd" id="1_5uy6h"]
-[ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_md0e3"]
-[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_bar.tscn" id="2_4ra3w"]
-[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/character_body_2d.gd" id="2_5uy6h"]
-[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack.tscn" id="5_c4w8v"]
+[ext_resource type="Texture2D" uid="uid://cwt4st7is2mpe" path="res://assets/enemy/icon.svg" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/character_body_2d.gd" id="2_38ino"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/health_bar.tscn" id="4_nb6gf"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack_component.tscn" id="5_jt03m"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_component.tscn" id="6_n7575"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/hurtbox.tscn" id="7_jt03m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8e3ao"]
+size = Vector2(126, 127)
 
 [node name="Enemy" type="Node2D" groups=["enemies"]]
-modulate = Color(0.616149, 0, 0.0920914, 1)
 script = ExtResource("1_5uy6h")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = ExtResource("2_5uy6h")
+script = ExtResource("2_38ino")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("1_md0e3")
+texture = ExtResource("1_6xk8f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-scale = Vector2(6.5, 6.5)
-shape = SubResource("RectangleShape2D_5uy6h")
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_8e3ao")
 
-[node name="HealthBar" parent="." instance=ExtResource("2_4ra3w")]
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("4_nb6gf")]
 
-[node name="Attack" parent="." instance=ExtResource("5_c4w8v")]
+[node name="AttackComponent" parent="." instance=ExtResource("5_jt03m")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_n7575")]
+
+[node name="Hurtbox" parent="." instance=ExtResource("7_jt03m")]
+
+[connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
