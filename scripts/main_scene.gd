@@ -1,7 +1,6 @@
 extends Node
 
 @onready var spawn_manager: Node2D = $EnemySpawnManager
-@onready var timer: Timer = $Timer
 @onready var base: Base = $Base
 @onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
 @onready var gold_count_label : GoldCountLabel = get_node_or_null("GoldCountLabel")
@@ -28,14 +27,14 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	#TODO verificare pentru fiecare tip de aliat nu doar pentru cel cu cheia 1
-	if event.is_action_pressed("1") and !ally_spawn_canvas.is_active:
+	if event.is_action_pressed("1") and !ally_spawn_canvas.visible:
 		var ally_scene = allies_dictionary[1]
 		var ally = ally_scene.instantiate()
 		var sprite = ally.get_node_or_null("CharacterBody2D/Sprite2D")
 		var cost_component = ally.get_node_or_null("CostComponent")
 		ally_spawn_canvas.add_canvas_items(sprite.texture, cost_component.cost)
 		ally.queue_free()
-	elif event.is_action_pressed("1") and ally_spawn_canvas.is_active:
+	elif event.is_action_pressed("1") and ally_spawn_canvas.visible:
 		ally_spawn_canvas.remove_canvas_items()
 
 # Cand AllySpawnCanvas semnaleaza ca incercam sa spawnam o unitate
@@ -63,9 +62,10 @@ func buy_ally(ally : Node2D) -> void:
 			add_child(ally)
 	else:
 		print("Not enough gold")
+	ally_spawn_canvas.remove_canvas_items()
 
 # Cream trupele inamice in momentul in care timerul atinge 0
-func _on_timer_timeout() -> void:
+func _on_enemy_spawn_timer_timeout() -> void:
 	var spawn_points = spawn_manager.get_children()
 	var spawn_point = spawn_points.pick_random()
 	var enemy = enemy_scene.instantiate()
