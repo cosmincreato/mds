@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://befe606ow32q5" path="res://scripts/base.gd" id="1_h5ip5"]
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_pvqg0"]
-[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_component.tscn" id="2_baglu"]
-[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/health_bar.tscn" id="5_40w10"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="2_baglu"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="5_40w10"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h5ip5"]
 size = Vector2(124, 123)

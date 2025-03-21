@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b440y2dak6lja"]
 
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_l1mpe"]
-[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack_component.tscn" id="3_20huh"]
-[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_component.tscn" id="3_kjwhc"]
-[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/hurtbox.tscn" id="4_kjwhc"]
-[ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/cost_component.tscn" id="5_mthl8"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="3_20huh"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="3_kjwhc"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="4_kjwhc"]
+[ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/entities/components/cost_component.tscn" id="5_mthl8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
 
