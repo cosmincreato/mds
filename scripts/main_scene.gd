@@ -5,9 +5,10 @@ extends Node
 @onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
 @onready var gold_count_label : GoldCountLabel = get_node_or_null("GoldCountLabel")
 
-var enemy_scene = preload("res://scenes/enemies/enemy.tscn")
-var allies_dir = DirAccess.open("res://scenes/allies/")
+var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
+var allies_dir = DirAccess.open("res://scenes/entities/allies/")
 
+var enemies := []
 var allies_dictionary: Dictionary = {}
 var hovering: bool = false
 
@@ -17,12 +18,16 @@ func _ready() -> void:
 	var index = 1
 	var path: String
 	for ally in allies_dir.get_files():
-		path = "res://scenes/allies/" + str(ally)
+		path = allies_dir.get_current_dir() + "/" + str(ally)
 		allies_dictionary[index] = load(path)
 		index += 1
 
 	base.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	base.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
+	
+	for enemy in enemies_dir.get_files():
+		path = enemies_dir.get_current_dir() + "/" + str(enemy)
+		enemies.append(load(path))
 	
 	
 func _input(event: InputEvent) -> void:
@@ -68,7 +73,9 @@ func buy_ally(ally : Node2D) -> void:
 func _on_enemy_spawn_timer_timeout() -> void:
 	var spawn_points = spawn_manager.get_children()
 	var spawn_point = spawn_points.pick_random()
-	var enemy = enemy_scene.instantiate()
+	# TODO aici o sa avem un algoritm de spawnat bazat pe wave,
+	#eu doar am pus random ca sa vad ca merge sa spawnam tipuri de inamici
+	var enemy = enemies.pick_random().instantiate()
 	enemy.position = spawn_point.position
 	enemy.seeking = base
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)

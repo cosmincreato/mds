@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2qvboyd1b06e"]
+
+[ext_resource type="Script" uid="uid://dhbdnoohp1xv" path="res://scripts/entities/enemies/skeleton.gd" id="1_f0qv5"]
+[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/entities/enemies/character_body_2d.gd" id="2_ey25l"]
+[ext_resource type="Texture2D" uid="uid://cwt4st7is2mpe" path="res://assets/enemy/icon.svg" id="3_iet1o"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="4_aub10"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="5_efa2h"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_mfyrh"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_rwbew"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywdfk"]
+size = Vector2(126, 127)
+
+[node name="Skeleton" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_f0qv5")
+metadata/_custom_type_script = "uid://dpkhuk08hrkp5"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_ey25l")
+speed = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(0.347817, 0.347817, 0.347817, 1)
+texture = ExtResource("3_iet1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ywdfk")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("4_aub10")]
+
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("5_efa2h")]
+
+[node name="AttackComponent" parent="." instance=ExtResource("6_mfyrh")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_rwbew")]
