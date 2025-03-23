@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctfc378nlnrsy"]
+[gd_scene load_steps=9 format=3 uid="uid://ctfc378nlnrsy"]
 
 [ext_resource type="Script" uid="uid://cjfvvhd5dbebq" path="res://scripts/main_scene.gd" id="1_pu3yx"]
+[ext_resource type="Script" uid="uid://bytqlgkbkal0v" path="res://scripts/enemy_spawn_manager.gd" id="3_18nlu"]
 [ext_resource type="PackedScene" uid="uid://cp6j2eswm0vn1" path="res://scenes/base.tscn" id="3_gubc5"]
+[ext_resource type="Script" uid="uid://bgeqx53w6laex" path="res://scripts/entities/enemies/enemy_factory.gd" id="4_18nlu"]
 [ext_resource type="Script" uid="uid://cwtplco0hlnba" path="res://scripts/ui/ally_spawn_canvas.gd" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://dq6e0nvgd0fr4" path="res://scenes/spawn_point.tscn" id="4_pu3yx"]
 [ext_resource type="Script" uid="uid://dbpbfvweqfc8o" path="res://scripts/ui/gold_count_label.gd" id="5_gubc5"]
@@ -17,46 +19,52 @@ position = Vector2(800, 450)
 zoom = Vector2(0.4, 0.4)
 
 [node name="EnemySpawnManager" type="Node2D" parent="."]
+script = ExtResource("3_18nlu")
 
-[node name="SpawnPoint" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(-1300, 1100)
-
-[node name="SpawnPoint2" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(-1300, 500)
-
-[node name="SpawnPoint3" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(-1300, -100)
-
-[node name="SpawnPoint4" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(2900, -100)
-
-[node name="SpawnPoint5" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(2900, 500)
-
-[node name="SpawnPoint6" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(2900, 1100)
-
-[node name="SpawnPoint7" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(-400, -800)
-
-[node name="SpawnPoint8" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(750, -800)
-
-[node name="SpawnPoint9" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(1900, -800)
-
-[node name="SpawnPoint10" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(750, 1750)
-
-[node name="SpawnPoint11" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(1900, 1750)
-
-[node name="SpawnPoint12" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
-position = Vector2(-400, 1750)
-
-[node name="EnemySpawnTimer" type="Timer" parent="."]
+[node name="EnemySpawnTimer" type="Timer" parent="EnemySpawnManager"]
 wait_time = 3.0
 autostart = true
+
+[node name="EnemyFactory" type="Node" parent="EnemySpawnManager"]
+script = ExtResource("4_18nlu")
+
+[node name="SpawnPoints" type="Node2D" parent="EnemySpawnManager"]
+
+[node name="SpawnPoint" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(-1300, 1100)
+
+[node name="SpawnPoint2" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(-1300, 500)
+
+[node name="SpawnPoint3" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(-1300, -100)
+
+[node name="SpawnPoint4" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(2900, -100)
+
+[node name="SpawnPoint5" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(2900, 500)
+
+[node name="SpawnPoint6" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(2900, 1100)
+
+[node name="SpawnPoint7" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(-400, -800)
+
+[node name="SpawnPoint8" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(750, -800)
+
+[node name="SpawnPoint9" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(1900, -800)
+
+[node name="SpawnPoint10" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(750, 1750)
+
+[node name="SpawnPoint11" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(1900, 1750)
+
+[node name="SpawnPoint12" parent="EnemySpawnManager/SpawnPoints" instance=ExtResource("4_pu3yx")]
+position = Vector2(-400, 1750)
 
 [node name="AllySpawnCanvas" type="Control" parent="."]
 layout_mode = 3
@@ -96,5 +104,6 @@ text = "[font_size='70'][b][color='yellow']500[/color][/b][/font_size]"
 horizontal_alignment = 1
 script = ExtResource("5_gubc5")
 
-[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="enemy_spawned" from="EnemySpawnManager" to="." method="_on_enemy_spawn_manager_enemy_spawned"]
+[connection signal="timeout" from="EnemySpawnManager/EnemySpawnTimer" to="EnemySpawnManager" method="_on_enemy_spawn_timer_timeout"]
 [connection signal="ally_spawned" from="AllySpawnCanvas" to="." method="_on_canvas_ally_spawned"]
