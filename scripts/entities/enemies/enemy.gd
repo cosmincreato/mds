@@ -4,7 +4,7 @@ class_name Enemy extends Node2D
 @export var seeking : Node2D = null
 @onready var health_bar : HealthBar = get_node_or_null("CharacterBody2D/HealthBar")
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
-
+	
 func _ready() -> void:
 	# Dependency Injection pentru copiii care au nevoie de variabile din parinte
 	for child in get_children():
