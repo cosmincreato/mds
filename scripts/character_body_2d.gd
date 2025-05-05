@@ -4,8 +4,11 @@ var parent : Node2D = null
 @export var speed : int = 300
 		
 func _physics_process(_delta: float) -> void:
-	var dir = global_position.direction_to(parent.seeking.global_position)
-	velocity = dir * speed
+	if parent.seeking:
+		var dir = global_position.direction_to(parent.seeking.global_position)
+		velocity = dir * speed
+	else:
+		parent.seeking = parent.base
 	move_and_slide()
 
 

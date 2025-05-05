@@ -43,6 +43,7 @@ func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float, type: int) -> void:
 	if !hovering:
 		var ally = allies_dictionary[type].instantiate()
 		ally.position = Vector2(mouse_x, mouse_y)
+		ally.add_to_group("allies")	
 		ally.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 		ally.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
 		buy_ally(ally)
@@ -71,6 +72,7 @@ func _on_timer_timeout() -> void:
 	var enemy = enemy_scene.instantiate()
 	enemy.position = spawn_point.position
 	enemy.seeking = base
+	enemy.base = base
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
 	add_child(enemy)
