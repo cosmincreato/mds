@@ -1,0 +1,34 @@
+extends Node2D
+
+@onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
+@onready var health_bar : HealthBar = $CharacterBody2D/HealthBar
+@onready var cooldown : Timer = $Cooldown
+
+var attacking : Node2D = null
+
+func _ready() -> void:
+	if health_bar:
+		health_bar.max_value = health_component.max_health
+		
+func _process(delta) -> void :
+	if health_component.health <= 0:
+		return
+	
+	if cooldown.time_left == 0 && attacking != null:
+		var target_health_component = attacking.get_node_or_null("HealthComponent")
+		
+		if target_health_component:
+			$AttackComponent.deal_damage(target_health_component)
+			
+		cooldown.start()
+
+func _on_health_component_died() -> void:
+	queue_free()
+
+func _on_health_component_damage_taken(new_health: int, amount: int) -> void:
+	if health_bar:
+		health_bar.update(new_health)
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.get_parent().is_in_group("enemies"):
+		attacking = body.get_parent()

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://boobhem0hxmka"]
+
+[ext_resource type="Script" uid="uid://b5fvvtykkff42" path="res://scripts/entities/components/health_bar.gd" id="1_1bvlm"]
+
+[sub_resource type="Theme" id="Theme_y3kqx"]
+
+[node name="HealthBar" type="ProgressBar"]
+visible = false
+modulate = Color(1, 0, 0, 1)
+offset_left = -80.0
+offset_top = -110.0
+offset_right = 80.0
+offset_bottom = -80.0
+theme = SubResource("Theme_y3kqx")
+show_percentage = false
+script = ExtResource("1_1bvlm")

@@ -3,7 +3,7 @@ extends Node
 @onready var spawn_manager: Node2D = $EnemySpawnManager
 @onready var base: Base = $Base
 @onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
-@onready var gold_count_label : GoldCountLabel = get_node_or_null("GoldCountLabel")
+@onready var gold_count_label: GoldCountLabel = get_node_or_null("GoldCountLabel")
 
 var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
 var allies_dir = DirAccess.open("res://scenes/entities/allies/")
@@ -41,7 +41,7 @@ func _input(event: InputEvent) -> void:
 		ally.queue_free()
 	elif event.is_action_pressed("1") and ally_spawn_canvas.visible:
 		ally_spawn_canvas.remove_canvas_items()
-
+		
 # Cand AllySpawnCanvas semnaleaza ca incercam sa spawnam o unitate
 func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float, type: int) -> void:
 	if !hovering:
