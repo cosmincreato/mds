@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_l1mpe"]
 [ext_resource type="Script" uid="uid://y1e426ja33mt" path="res://scripts/ally.gd" id="1_un2j4"]
-[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/attack_component.tscn" id="3_20huh"]
-[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/health_component.tscn" id="3_kjwhc"]
-[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/hurtbox.tscn" id="4_kjwhc"]
-[ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/cost_component.tscn" id="5_mthl8"]
-[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/health_bar.tscn" id="7_lymqk"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="3_20huh"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="3_kjwhc"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="4_kjwhc"]
+[ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/entities/components/cost_component.tscn" id="5_mthl8"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="7_lymqk"]
 [ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_7wth0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
@@ -38,8 +38,6 @@ max_health = 500
 [node name="CostComponent" parent="." instance=ExtResource("5_mthl8")]
 
 [node name="Cooldown" parent="." instance=ExtResource("8_7wth0")]
-one_shot = true
-autostart = true
 
 [connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]

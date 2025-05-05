@@ -14,6 +14,7 @@ func _ready() -> void:
 
 func take_damage(amount : int) -> void:
 	health -= amount
+	print("New health" + str(health))
 	
 	if health <= 0:
 		health = 0

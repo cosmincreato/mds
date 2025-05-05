@@ -1,0 +1,46 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpth7xew658mj"]
+
+[ext_resource type="Script" uid="uid://cy8ild4qeljum" path="res://scripts/entities/enemies/dragon.gd" id="1_4mo7g"]
+[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/entities/enemies/character_body_2d.gd" id="2_cbvde"]
+[ext_resource type="Texture2D" uid="uid://cwt4st7is2mpe" path="res://assets/enemy/icon.svg" id="3_5oure"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="4_671wr"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="5_0tgij"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_ppcb5"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_htr04"]
+[ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_cbvde"]
+[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/attack_area.tscn" id="9_5oure"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywdfk"]
+size = Vector2(126, 127)
+
+[node name="Dragon" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_4mo7g")
+metadata/_custom_type_script = "uid://dpkhuk08hrkp5"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_cbvde")
+speed = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(0.591459, 0, 0.0417466, 1)
+texture = ExtResource("3_5oure")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ywdfk")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("4_671wr")]
+
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("5_0tgij")]
+
+[node name="AttackArea" parent="CharacterBody2D" instance=ExtResource("9_5oure")]
+
+[node name="AttackComponent" parent="." instance=ExtResource("6_ppcb5")]
+attack_damage = 200
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_htr04")]
+
+[node name="Cooldown" parent="." instance=ExtResource("8_cbvde")]
+
+[connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_entered"]

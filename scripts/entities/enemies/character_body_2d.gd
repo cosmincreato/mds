@@ -11,7 +11,6 @@ func _physics_process(_delta: float) -> void:
 		parent.seeking = parent.base
 	move_and_slide()
 
-
 # Ii vom da nodului toate proprietatile de care are nevoie
 func set_dependencies(p: Node2D):
 	self.parent = p

@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctfc378nlnrsy"]
+[gd_scene load_steps=4 format=3 uid="uid://ctfc378nlnrsy"]
 
 [ext_resource type="Script" uid="uid://cjfvvhd5dbebq" path="res://scripts/main_scene.gd" id="1_pu3yx"]
-[ext_resource type="Script" uid="uid://bytqlgkbkal0v" path="res://scripts/enemy_spawn_manager.gd" id="3_c16ls"]
 [ext_resource type="PackedScene" uid="uid://cp6j2eswm0vn1" path="res://scenes/base.tscn" id="3_gubc5"]
-[ext_resource type="Script" uid="uid://cwtplco0hlnba" path="res://scripts/ui/ally_spawn_canvas.gd" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://dq6e0nvgd0fr4" path="res://scenes/spawn_point.tscn" id="4_pu3yx"]
-[ext_resource type="Script" uid="uid://coqvhyfflahm8" path="res://scripts/ui/cost_label.gd" id="6_18nlu"]
-[ext_resource type="Script" uid="uid://dbpbfvweqfc8o" path="res://scripts/ui/gold_count_label.gd" id="7_c1pb6"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_pu3yx")
@@ -18,7 +14,6 @@ position = Vector2(800, 450)
 zoom = Vector2(0.4, 0.4)
 
 [node name="EnemySpawnManager" type="Node2D" parent="."]
-script = ExtResource("3_c16ls")
 
 [node name="SpawnPoint" parent="EnemySpawnManager" instance=ExtResource("4_pu3yx")]
 position = Vector2(-1300, 1100)
@@ -63,7 +58,6 @@ autostart = true
 [node name="AllySpawnCanvas" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("4_gubc5")
 
 [node name="TextureRect" type="TextureRect" parent="AllySpawnCanvas"]
 layout_mode = 0
@@ -79,7 +73,6 @@ offset_right = 2229.0
 offset_bottom = -153.0
 bbcode_enabled = true
 horizontal_alignment = 2
-script = ExtResource("6_18nlu")
 
 [node name="GoldCountLabel" type="RichTextLabel" parent="."]
 anchors_preset = 3
@@ -96,7 +89,5 @@ grow_vertical = 0
 bbcode_enabled = true
 text = "[font_size='70'][b][color='yellow']500[/color][/b][/font_size]"
 horizontal_alignment = 2
-script = ExtResource("7_c1pb6")
 
-[connection signal="timeout" from="Timer" to="." method="_on_enemy_spawn_timer_timeout"]
-[connection signal="ally_spawned" from="AllySpawnCanvas" to="." method="_on_canvas_ally_spawned"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cy8p14uekydcr"]
 
-[ext_resource type="Script" uid="uid://cuuruiuuygckk" path="res://scripts/cost_component.gd" id="1_ua6mw"]
+[ext_resource type="Script" uid="uid://cuuruiuuygckk" path="res://scripts/entities/components/cost_component.gd" id="1_ua6mw"]
 
 [node name="CostComponent" type="Node"]
 script = ExtResource("1_ua6mw")
