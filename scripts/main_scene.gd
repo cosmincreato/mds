@@ -47,7 +47,7 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("1"):
-		current_ally_type = 1
+		current_ally_type = 1 #debug
 	elif event.is_action_pressed("2"):
 		current_ally_type = 2
 	else:
