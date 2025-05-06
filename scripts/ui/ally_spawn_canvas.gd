@@ -1,6 +1,6 @@
 class_name AllySpawnCanvas extends Control
 
-signal ally_spawned(mouse_x : float, mouse_y : float, type : int)
+signal ally_spawned(mouse_x : float, mouse_y : float)
 
 @onready var texture_rect : TextureRect = get_node_or_null("TextureRect")
 @onready var cost_label : RichTextLabel = get_node_or_null("CostLabel")
@@ -31,7 +31,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse") and visible:
 		var mouse_position = get_local_mouse_position()
-		ally_spawned.emit(mouse_position.x, mouse_position.y, 1)
+		ally_spawned.emit(mouse_position.x, mouse_position.y)
 
 # Facem ca textura din TextureRect sa urmareasca pozitia mouse-ului
 func _process(_delta: float) -> void:
