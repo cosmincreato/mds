@@ -39,8 +39,10 @@ shape = SubResource("RectangleShape2D_ywdfk")
 attack_damage = 200
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_htr04")]
+max_health = 500
 
 [node name="Cooldown" parent="." instance=ExtResource("8_cbvde")]
 
 [connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_exited"]

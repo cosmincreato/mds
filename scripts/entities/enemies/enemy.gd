@@ -41,12 +41,17 @@ func _on_health_component_died() -> void:
 	GameManager.add_gold(50)
 	queue_free()
 
-#func _on_attack_area_body_entered(body: Node2D) -> void:
-	#print("Area entered")
-	#if (body.get_parent().is_in_group("allies")):
-		#seeking = body
-#
-#func _on_hurtbox_body_entered(body: Node2D) -> void:
-	#print("Hurtbox entered")
-	#if body.get_parent().is_in_group("allies"):
-		#attacking = body.get_parent()
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	print("Hurtbox entered")
+	if body.get_parent().is_in_group("allies"):
+		attacking = body.get_parent()
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	print("Area entered")
+	if (body.get_parent().is_in_group("allies")):
+		seeking = body
+
+func _on_attack_area_body_exited(body: Node2D) -> void:
+	if (body.get_parent().is_in_group("allies")):
+		print(base)
+		seeking = base
