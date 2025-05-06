@@ -23,6 +23,8 @@ func _process(delta) -> void :
 		cooldown.start()
 
 func _on_health_component_died() -> void:
+	if is_instance_valid(get_parent()):
+		get_parent().remove_from_selected(self)
 	queue_free()
 
 func _on_health_component_damage_taken(new_health: int, amount: int) -> void:

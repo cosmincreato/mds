@@ -1,0 +1,47 @@
+[gd_scene load_steps=11 format=3 uid="uid://ccdo5n3d2sl1y"]
+
+[ext_resource type="Script" uid="uid://y1e426ja33mt" path="res://scripts/ally.gd" id="1_e8guy"]
+[ext_resource type="Script" uid="uid://dw5hqqe8dykio" path="res://scripts/character_body_2d.gd" id="2_m381c"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="3_85n2c"]
+[ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="4_wvmqp"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="5_dkubr"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_tua8u"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_1pj48"]
+[ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/entities/components/cost_component.tscn" id="8_oh7fq"]
+[ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="9_ah7jv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
+
+[node name="Ally" type="Node2D" groups=["allies"]]
+script = ExtResource("1_e8guy")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_m381c")
+
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("3_85n2c")]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+modulate = Color(0.455867, 0.669248, 1, 1)
+texture = ExtResource("4_wvmqp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 1)
+scale = Vector2(6.5, 6.5)
+shape = SubResource("RectangleShape2D_a0l60")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("5_dkubr")]
+modulate = Color(0, 1, 0, 1)
+
+[node name="AttackComponent" parent="." instance=ExtResource("6_tua8u")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_1pj48")]
+max_health = 500
+
+[node name="CostComponent" parent="." instance=ExtResource("8_oh7fq")]
+cost = 200
+
+[node name="Cooldown" parent="." instance=ExtResource("9_ah7jv")]
+
+[connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
