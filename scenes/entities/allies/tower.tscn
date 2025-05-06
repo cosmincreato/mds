@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cl0tncvpgb4sr"]
+[gd_scene load_steps=8 format=3 uid="uid://cl0tncvpgb4sr"]
 
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="1_m5wkl"]
 [ext_resource type="Texture2D" uid="uid://bvuu4opq2mh7r" path="res://assets/ally/icon.svg" id="2_poddj"]
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="3_j0m5v"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="3_poddj"]
 [ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/entities/components/cost_component.tscn" id="4_13geb"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="5_e8guy"]
 
@@ -21,6 +22,8 @@ texture = ExtResource("2_poddj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_m381c")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("3_poddj")]
 
 [node name="AttackComponent" parent="." instance=ExtResource("3_j0m5v")]
 

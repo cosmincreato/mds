@@ -3,10 +3,12 @@ extends Node
 @onready var spawn_manager: Node2D = $EnemySpawnManager
 @onready var base: Base = $Base
 @onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
-@onready var gold_count_label : GoldCountLabel = get_node_or_null("GoldCountLabel")
+@onready var gold_count_label: GoldCountLabel = get_node_or_null("GoldCountLabel")
 
+var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
 var allies_dir = DirAccess.open("res://scenes/entities/allies/")
 
+var enemies := []
 var allies_dictionary: Dictionary = {}
 var hovering: bool = false
 
@@ -40,7 +42,16 @@ func _ready() -> void:
 
 	base.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	base.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
+<<<<<<< HEAD
 
+=======
+	
+	for enemy in enemies_dir.get_files():
+		path = enemies_dir.get_current_dir() + "/" + str(enemy)
+		enemies.append(load(path))
+	
+	
+>>>>>>> 565d96e84cbbc6915cfe9e19ab4f3d09ebe28dd0
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse") and ally_spawn_canvas.visible:
 		_on_canvas_ally_spawned(ally_spawn_canvas.mouse_x, ally_spawn_canvas.mouse_y, current_ally_type)
@@ -66,7 +77,7 @@ func _input(event: InputEvent) -> void:
 		ally.queue_free()
 	else:
 		ally_spawn_canvas.remove_canvas_items()
-
+		
 # Cand AllySpawnCanvas semnaleaza ca incercam sa spawnam o unitate
 func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float, type: int) -> void:
 	if !hovering:
@@ -124,10 +135,17 @@ func buy_ally(ally : Node2D) -> void:
 		ally.queue_free()
 
 	ally_spawn_canvas.remove_canvas_items()
-	
-# Cand EnemySpawnManager semnaleaza ca un inamic s-a spawnat
-func _on_enemy_spawn_manager_enemy_spawned(enemy: Enemy) -> void:
+
+# Cream trupele inamice in momentul in care timerul atinge 0
+func _on_enemy_spawn_timer_timeout() -> void:
+	var spawn_points = spawn_manager.get_children()
+	var spawn_point = spawn_points.pick_random()
+	# TODO aici o sa avem un algoritm de spawnat bazat pe wave,
+	#eu doar am pus random ca sa vad ca merge sa spawnam tipuri de inamici
+	var enemy = enemies.pick_random().instantiate()
+	enemy.position = spawn_point.position
 	enemy.seeking = base
+	enemy.base = base
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
 	add_child(enemy)

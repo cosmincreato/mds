@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2qvboyd1b06e"]
+[gd_scene load_steps=11 format=3 uid="uid://d2qvboyd1b06e"]
 
 [ext_resource type="Script" uid="uid://dhbdnoohp1xv" path="res://scripts/entities/enemies/skeleton.gd" id="1_f0qv5"]
 [ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/entities/enemies/character_body_2d.gd" id="2_ey25l"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="5_efa2h"]
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_mfyrh"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_rwbew"]
+[ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_iet1o"]
+[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/attack_area.tscn" id="9_aub10"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ywdfk"]
 size = Vector2(126, 127)
@@ -31,6 +33,16 @@ shape = SubResource("RectangleShape2D_ywdfk")
 
 [node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("5_efa2h")]
 
+[node name="AttackArea" parent="CharacterBody2D" instance=ExtResource("9_aub10")]
+position = Vector2(1, 0)
+
 [node name="AttackComponent" parent="." instance=ExtResource("6_mfyrh")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_rwbew")]
+max_health = 500
+
+[node name="Cooldown" parent="." instance=ExtResource("8_iet1o")]
+
+[connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_exited"]
