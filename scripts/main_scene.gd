@@ -78,6 +78,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	var enemy = enemies.pick_random().instantiate()
 	enemy.position = spawn_point.position
 	enemy.seeking = base
+	enemy.base = base
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
 	add_child(enemy)
