@@ -55,6 +55,7 @@ func _input(event: InputEvent) -> void:
 	
 	print("current_ally_type:", current_ally_type, " | Tip:", typeof(current_ally_type))
 	
+	#debug
 	if !ally_spawn_canvas.visible:
 		var ally_scene = allies_dictionary[current_ally_type]
 		var ally = ally_scene.instantiate()
