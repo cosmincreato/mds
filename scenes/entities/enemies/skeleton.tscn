@@ -45,3 +45,4 @@ max_health = 500
 
 [connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_exited"]

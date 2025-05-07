@@ -7,10 +7,14 @@ extends Node
 
 var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
 var allies_dir = DirAccess.open("res://scenes/entities/allies/")
+var current_ally_type = 1  # Tipul curent de ally (1 = Ally, 2 = Tower)
 
 var enemies := []
-var allies_dictionary: Dictionary = {}
-var hovering: bool = false
+var allies_dictionary : Dictionary = {}
+var hovering : bool = false
+var ally_hovering : bool = false
+var hovered_ally : Node2D = null
+var selected_allies : Array = []
 
 func _ready() -> void:
 	# Cream un dictionar in care retinem toate locatiile din fisiere
@@ -24,31 +28,66 @@ func _ready() -> void:
 
 	base.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	base.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
+	base.find_child("Hurtbox").collision_layer = 1 << 0
+	base.find_child("Hurtbox").collision_mask = 1 << 1
 	
 	for enemy in enemies_dir.get_files():
 		path = enemies_dir.get_current_dir() + "/" + str(enemy)
 		enemies.append(load(path))
-	
-	
+
 func _input(event: InputEvent) -> void:
 	#TODO verificare pentru fiecare tip de aliat nu doar pentru cel cu cheia 1
-	if event.is_action_pressed("1") and !ally_spawn_canvas.visible:
-		var ally_scene = allies_dictionary[1]
+	if event.is_action_pressed("1"):
+		current_ally_type = 1
+		#var ally_scene = allies_dictionary[1]
+		#var ally = ally_scene.instantiate()
+		#var sprite = ally.get_node_or_null("CharacterBody2D/Sprite2D")
+		#var cost_component = ally.get_node_or_null("CostComponent")
+		#ally_spawn_canvas.add_canvas_items(sprite.texture, cost_component.cost)
+		#ally.queue_free()
+	elif event.is_action_pressed("2"):
+		current_ally_type = 2
+	else:
+		return
+		
+	if !ally_spawn_canvas.visible:
+		var ally_scene = allies_dictionary[current_ally_type]
 		var ally = ally_scene.instantiate()
 		var sprite = ally.get_node_or_null("CharacterBody2D/Sprite2D")
 		var cost_component = ally.get_node_or_null("CostComponent")
-		ally_spawn_canvas.add_canvas_items(sprite.texture, cost_component.cost)
+		if sprite and cost_component:
+			ally_spawn_canvas.add_canvas_items(sprite.texture, cost_component.cost)
 		ally.queue_free()
-	elif event.is_action_pressed("1") and ally_spawn_canvas.visible:
+	else:
 		ally_spawn_canvas.remove_canvas_items()
-		
+
+	if event.is_action_pressed("left_mouse") && ally_hovering:
+		selected_allies.push_back(hovered_ally)
+	if event.is_action_pressed("right_mouse") && selected_allies.size() != 0:
+		var move_to = get_viewport().get_camera_2d().get_global_mouse_position()
+		for ally in selected_allies:
+			var body = ally.get_node_or_null("CharacterBody2D")
+			if body:
+				body.set_target_position(move_to)
+	if event.is_action("left_mouse") && !ally_hovering:
+		selected_allies = []
+	
+				
 # Cand AllySpawnCanvas semnaleaza ca incercam sa spawnam o unitate
-func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float, type: int) -> void:
+func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float) -> void:
+	print("Test")
 	if !hovering:
-		var ally = allies_dictionary[type].instantiate()
+		var ally = allies_dictionary[current_ally_type].instantiate()
 		ally.position = Vector2(mouse_x, mouse_y)
-		ally.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
-		ally.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
+		var ally_hurtbox = ally.find_child("Hurtbox")
+		ally_hurtbox.mouse_entered.connect(_on_mouse_entered)
+		ally_hurtbox.mouse_entered.connect(_on_ally_mouse_entered.bind(ally))
+		ally_hurtbox.mouse_exited.connect(_on_mouse_exited)
+		ally_hurtbox.mouse_exited.connect(_on_ally_mouse_exited)
+		var ally_collision_shape = ally.find_child("CharacterBody2D")
+		if ally_collision_shape:
+			ally_collision_shape.collision_layer = 1 << 0
+			ally_collision_shape.collision_mask = 1 << 1
 		buy_ally(ally)
 	else:
 		print("Invalid position")
@@ -78,12 +117,26 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	var enemy = enemies.pick_random().instantiate()
 	enemy.position = spawn_point.position
 	enemy.seeking = base
+	enemy.base = base
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
+	enemy.find_child("CharacterBody2D").collision_layer = 1 << 1
+	enemy.find_child("CharacterBody2D").collision_mask = 1 << 0
 	add_child(enemy)
-	
+
 func _on_mouse_entered() -> void:
 	hovering = true
 	
 func _on_mouse_exited() -> void:
 	hovering = false
+	
+func _on_ally_mouse_entered(ally : Node2D) -> void:
+	ally_hovering = true
+	hovered_ally = ally
+	
+func _on_ally_mouse_exited() -> void:
+	ally_hovering = false
+	hovered_ally = null
+	
+func remove_from_selected(ally: Node2D) -> void:
+	selected_allies.erase(ally)

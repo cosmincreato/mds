@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b440y2dak6lja"]
+[gd_scene load_steps=11 format=3 uid="uid://b440y2dak6lja"]
 
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_l1mpe"]
 [ext_resource type="Script" uid="uid://y1e426ja33mt" path="res://scripts/ally.gd" id="1_un2j4"]
+[ext_resource type="Script" uid="uid://dw5hqqe8dykio" path="res://scripts/character_body_2d.gd" id="2_mwmbv"]
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="3_20huh"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="3_kjwhc"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="4_kjwhc"]
@@ -15,6 +16,7 @@
 script = ExtResource("1_un2j4")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_mwmbv")
 
 [node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("4_kjwhc")]
 
