@@ -4,6 +4,7 @@ extends Node
 @onready var base: Base = $Base
 @onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
 @onready var gold_count_label: GoldCountLabel = get_node_or_null("GoldCountLabel")
+@onready var enemy_factory : EnemyFactory = EnemyFactory.new()
 
 var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
 var allies_dir = DirAccess.open("res://scenes/entities/allies/")
@@ -114,8 +115,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	var spawn_point = spawn_points.pick_random()
 	# TODO aici o sa avem un algoritm de spawnat bazat pe wave,
 	#eu doar am pus random ca sa vad ca merge sa spawnam tipuri de inamici
-	var enemy = enemies.pick_random().instantiate()
-	enemy.position = spawn_point.position
+	var enemy = enemy_factory.create_enemy(enemy_factory.enemies.keys().pick_random(), spawn_point.position)
 	enemy.seeking = base
 	enemy.base = base
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
