@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://5txw2nitck0i"]
+
+[ext_resource type="Script" uid="uid://dwdakyv4luw2w" path="res://scripts/pause_menu.gd" id="1_n87rw"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n87rw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.423529)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="ResumeButton" type="Button" parent="Node"]
+offset_left = 532.0
+offset_top = 230.0
+offset_right = 604.0
+offset_bottom = 261.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "RESUME"
+
+[node name="MainMenuButton" type="Button" parent="Node"]
+offset_left = 493.0
+offset_top = 319.0
+offset_right = 668.0
+offset_bottom = 350.0
+text = "BACK TO MAIN MENU"
+
+[connection signal="pressed" from="Node/ResumeButton" to="." method="_on_ResumeButton_pressed"]

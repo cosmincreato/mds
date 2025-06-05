@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MDS"
-run/main_scene="uid://ctfc378nlnrsy"
+run/main_scene="uid://cb6hllke727um"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/base/icon.svg"
 

@@ -1,14 +1,17 @@
 extends Node
 
+
 @onready var spawn_manager: Node2D = $EnemySpawnManager
 @onready var base: Base = $Base
 @onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
 @onready var gold_count_label: GoldCountLabel = get_node_or_null("GoldCountLabel")
 
+var pause_menu_path := "res://scenes/pause_menu.tscn"
 var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
 var allies_dir = DirAccess.open("res://scenes/entities/allies/")
 var current_ally_type = 1  # Tipul curent de ally (1 = Ally, 2 = Tower)
 
+var pause_menu_instance : Node
 var enemies := []
 var allies_dictionary : Dictionary = {}
 var hovering : bool = false
@@ -140,3 +143,12 @@ func _on_ally_mouse_exited() -> void:
 	
 func remove_from_selected(ally: Node2D) -> void:
 	selected_allies.erase(ally)
+
+
+func _on_PauseButton_pressed():
+	# Creează și adaugă meniul de pauză
+	pause_menu_instance = load(pause_menu_path).instantiate()
+	get_tree().root.add_child(pause_menu_instance)
+
+	# Oprește timpul în joc
+	get_tree().paused = true
