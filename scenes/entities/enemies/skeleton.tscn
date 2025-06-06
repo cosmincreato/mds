@@ -39,7 +39,7 @@ position = Vector2(1, 0)
 [node name="AttackComponent" parent="." instance=ExtResource("6_mfyrh")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_rwbew")]
-max_health = 500
+max_health = 300
 
 [node name="Cooldown" parent="." instance=ExtResource("8_iet1o")]
 
