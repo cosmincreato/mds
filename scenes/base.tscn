@@ -9,6 +9,7 @@
 size = Vector2(124, 123)
 
 [node name="Base" type="Node2D"]
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_h5ip5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
