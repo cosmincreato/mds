@@ -2,10 +2,12 @@ class_name Base extends Node2D
 
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
 @onready var health_bar : HealthBar = get_node_or_null("HealthBar")
+@onready var animated_sprite_2d : AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	if health_bar:
 		health_bar.max_value = health_component.max_health
+	animated_sprite_2d.play()
 		
 
 # Cand Hurtbox semnaleaza ca cineva a intrat in coliziune cu baza

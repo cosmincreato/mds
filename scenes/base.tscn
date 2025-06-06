@@ -1,19 +1,56 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp6j2eswm0vn1"]
+[gd_scene load_steps=11 format=3 uid="uid://cp6j2eswm0vn1"]
 
 [ext_resource type="Script" uid="uid://befe606ow32q5" path="res://scripts/base.gd" id="1_h5ip5"]
-[ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="1_pvqg0"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="2_baglu"]
+[ext_resource type="Texture2D" uid="uid://dkbwqrit4y8g7" path="res://assets/base/goose.png" id="2_h5ip5"]
 [ext_resource type="PackedScene" uid="uid://boobhem0hxmka" path="res://scenes/health_bar.tscn" id="5_40w10"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40w10"]
+atlas = ExtResource("2_h5ip5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvvcp"]
+atlas = ExtResource("2_h5ip5")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh5oj"]
+atlas = ExtResource("2_h5ip5")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqfsp"]
+atlas = ExtResource("2_h5ip5")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i6jx3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40w10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvvcp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh5oj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqfsp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h5ip5"]
 size = Vector2(124, 123)
 
 [node name="Base" type="Node2D"]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.3, 0.3)
 script = ExtResource("1_h5ip5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_pvqg0")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_i6jx3")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_baglu")]
 max_health = 666

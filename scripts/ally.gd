@@ -3,12 +3,14 @@ extends Node2D
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
 @onready var health_bar : HealthBar = $CharacterBody2D/HealthBar
 @onready var cooldown : Timer = $Cooldown
+@onready var animated_sprite_2d : AnimatedSprite2D = $CharacterBody2D/AnimatedSprite2D
 
 var attacking : Node2D = null
 
 func _ready() -> void:
 	if health_bar:
 		health_bar.max_value = health_component.max_health
+	animated_sprite_2d.play()
 		
 func _process(delta) -> void :
 	if health_component.health <= 0:

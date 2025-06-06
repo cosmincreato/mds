@@ -16,10 +16,10 @@
 radius = 503.254
 
 [node name="Tower" type="Node2D" groups=["allies"]]
-scale = Vector2(0.2, 0.2)
 script = ExtResource("1_e8guy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+scale = Vector2(0.2, 0.2)
 script = ExtResource("2_m381c")
 
 [node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("3_85n2c")]

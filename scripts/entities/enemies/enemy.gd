@@ -6,6 +6,7 @@ class_name Enemy extends Node2D
 @onready var health_bar : HealthBar = $CharacterBody2D/HealthBar
 @onready var cooldown : Timer = $Cooldown
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
+@onready var animated_sprite_2d : AnimatedSprite2D = $CharacterBody2D/AnimatedSprite2D
 
 var base : Node2D = null
 
@@ -17,6 +18,7 @@ func _ready() -> void:
 			
 	health_component.damage_taken.connect(_on_health_component_damage_taken)
 	health_component.died.connect(_on_health_component_died)
+	animated_sprite_2d.play()
 
 			
 func _process(delta : float):

@@ -5,6 +5,7 @@ extends Node
 @onready var base: Base = $Base
 @onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
 @onready var gold_count_label: GoldCountLabel = get_node_or_null("GoldCountLabel")
+@onready var enemy_factory : EnemyFactory = EnemyFactory.new()
 
 var pause_menu_path := "res://scenes/pause_menu.tscn"
 var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
@@ -58,10 +59,11 @@ func _input(event: InputEvent) -> void:
 	if !ally_spawn_canvas.visible and placing_ally:
 		var ally_scene = allies_dictionary[current_ally_type]
 		var ally = ally_scene.instantiate()
-		var sprite = ally.get_node_or_null("CharacterBody2D/Sprite2D")
+		var sprite = ally.get_node_or_null("CharacterBody2D/AnimatedSprite2D")
+		var sprite_frame = sprite.sprite_frames.get_frame_texture("default", 0)
 		var cost_component = ally.get_node_or_null("CostComponent")
 		if sprite and cost_component:
-			ally_spawn_canvas.add_canvas_items(sprite.texture, cost_component.cost)
+			ally_spawn_canvas.add_canvas_items(sprite_frame, cost_component.cost)
 		ally.queue_free()
 	elif placing_ally == false:
 		ally_spawn_canvas.remove_canvas_items()
@@ -118,8 +120,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	var spawn_point = spawn_points.pick_random()
 	# TODO aici o sa avem un algoritm de spawnat bazat pe wave,
 	#eu doar am pus random ca sa vad ca merge sa spawnam tipuri de inamici
-	var enemy = enemies.pick_random().instantiate()
-	enemy.position = spawn_point.position
+	var enemy = enemy_factory.create_enemy(enemy_factory.enemies.keys().pick_random(), spawn_point.position)
 	enemy.seeking = base
 	enemy.base = base
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
