@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccdo5n3d2sl1y"]
+[gd_scene load_steps=12 format=3 uid="uid://ccdo5n3d2sl1y"]
 
-[ext_resource type="Script" uid="uid://y1e426ja33mt" path="res://scripts/ally.gd" id="1_e8guy"]
+[ext_resource type="Script" uid="uid://cnyuyuwl0n0hl" path="res://scripts/tower.gd" id="1_e8guy"]
 [ext_resource type="Script" uid="uid://dw5hqqe8dykio" path="res://scripts/character_body_2d.gd" id="2_m381c"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="3_85n2c"]
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="4_wvmqp"]
@@ -12,7 +12,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
 
-[node name="Ally" type="Node2D" groups=["allies"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_e8guy"]
+radius = 503.254
+
+[node name="Tower" type="Node2D" groups=["allies"]]
 script = ExtResource("1_e8guy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
@@ -32,7 +35,13 @@ shape = SubResource("RectangleShape2D_a0l60")
 [node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("5_dkubr")]
 modulate = Color(0, 1, 0, 1)
 
+[node name="AttackArea" type="Area2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/AttackArea"]
+shape = SubResource("CircleShape2D_e8guy")
+
 [node name="AttackComponent" parent="." instance=ExtResource("6_tua8u")]
+attack_damage = 1000
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_1pj48")]
 max_health = 500
@@ -43,5 +52,6 @@ cost = 200
 [node name="Cooldown" parent="." instance=ExtResource("9_ah7jv")]
 
 [connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
