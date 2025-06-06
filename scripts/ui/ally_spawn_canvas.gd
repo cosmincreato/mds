@@ -12,6 +12,7 @@ func add_canvas_items(ally_texture : Texture2D, ally_cost : int) -> void:
 		texture_rect.texture = ally_texture
 		texture_rect.modulate = Color.GRAY
 		texture_rect.modulate.a = 0.6
+		texture_rect.scale = Vector2(.8, .8)
 	if cost_label:
 		cost_label.update(ally_cost)
 	visible = true
@@ -37,6 +38,6 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	if texture_rect and visible:
 		var mouse_position = get_global_mouse_position()
-		mouse_position.x -= texture_rect.texture.get_width() / 2.
-		mouse_position.y -= texture_rect.texture.get_height() / 2.
+		mouse_position.x -= texture_rect.texture.get_width()
+		mouse_position.y -= texture_rect.texture.get_height()
 		texture_rect.position = mouse_position

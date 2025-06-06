@@ -1,0 +1,83 @@
+[gd_scene load_steps=16 format=3 uid="uid://b440y2dak6lja"]
+
+[ext_resource type="Script" uid="uid://y1e426ja33mt" path="res://scripts/ally.gd" id="1_34cd7"]
+[ext_resource type="Script" uid="uid://dw5hqqe8dykio" path="res://scripts/character_body_2d.gd" id="2_swutk"]
+[ext_resource type="Texture2D" uid="uid://ccivbo7bm0hki" path="res://assets/ally/elf.png" id="3_34cd7"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="3_xnkg6"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="5_lwy06"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_u105i"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_f75r3"]
+[ext_resource type="PackedScene" uid="uid://cy8p14uekydcr" path="res://scenes/entities/components/cost_component.tscn" id="8_w0b7f"]
+[ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="9_32i12"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swutk"]
+atlas = ExtResource("3_34cd7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnkg6"]
+atlas = ExtResource("3_34cd7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrfwn"]
+atlas = ExtResource("3_34cd7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwy06"]
+atlas = ExtResource("3_34cd7")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u105i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swutk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnkg6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrfwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwy06")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0l60"]
+
+[node name="Elf" type="Node2D" groups=["allies", "moveable"]]
+script = ExtResource("1_34cd7")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("2_swutk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_u105i")
+
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("3_xnkg6")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 1)
+scale = Vector2(6.5, 6.5)
+shape = SubResource("RectangleShape2D_a0l60")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("5_lwy06")]
+modulate = Color(0, 1, 0, 1)
+
+[node name="AttackComponent" parent="." instance=ExtResource("6_u105i")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_f75r3")]
+max_health = 500
+
+[node name="CostComponent" parent="." instance=ExtResource("8_w0b7f")]
+
+[node name="Cooldown" parent="." instance=ExtResource("9_32i12")]
+
+[connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

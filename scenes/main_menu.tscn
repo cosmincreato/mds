@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb6hllke727um"]
+
+[ext_resource type="Script" uid="uid://cpjqhkwu0cv1j" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l6cm7"]
+
+[node name="MainMenu" type="Control"]
+material = SubResource("CanvasItemMaterial_l6cm7")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.588235, 1, 1, 1)
+
+[node name="Title" type="Label" parent="."]
+self_modulate = Color(0.109804, 0.145098, 0.45098, 1)
+layout_mode = 2
+offset_left = 350.0
+offset_top = 60.0
+offset_right = 818.0
+offset_bottom = 127.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 48
+text = "Giulești defensive"
+horizontal_alignment = 1
+justification_flags = 171
+uppercase = true
+
+[node name="Buttons" type="Node" parent="."]
+
+[node name="ExitButton" type="Button" parent="Buttons"]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = 80.0
+offset_right = 111.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_disabled_color = Color(0.584314, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.405363, 0.0171434, 0.022097, 1)
+theme_override_colors/font_hover_color = Color(0.443395, 0.107083, 0.0463978, 1)
+theme_override_colors/icon_disabled_color = Color(0.435294, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0.8, 0.52549, 1)
+theme_override_colors/font_color = Color(0.47451, 0.192157, 0.0117647, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.505882, 1)
+theme_override_font_sizes/font_size = 25
+text = "IEJI"
+
+[node name="PlayButton" type="Button" parent="Buttons"]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.305
+offset_top = -15.5
+offset_right = 108.695
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_disabled_color = Color(0, 0, 0.811765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.121569, 0, 0.615686, 1)
+theme_override_colors/font_hover_color = Color(2.88785e-07, 7.70092e-07, 0.753831, 1)
+theme_override_colors/icon_normal_color = Color(0, 0.8, 0.52549, 1)
+theme_override_colors/font_color = Color(0, 0, 0.952941, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.505882, 1)
+theme_override_font_sizes/font_size = 25
+text = "JUACĂ"
+
+[connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_PlayButton_pressed"]
