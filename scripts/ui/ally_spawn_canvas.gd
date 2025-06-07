@@ -5,6 +5,7 @@ signal ally_spawned(mouse_x : float, mouse_y : float)
 @onready var texture_rect : TextureRect = get_node_or_null("TextureRect")
 @onready var cost_label : RichTextLabel = get_node_or_null("CostLabel")
 
+var TEXTURE_RECT_SCALE_FACTOR = 0.8 
 ### Public
 
 func add_canvas_items(ally_texture : Texture2D, ally_cost : int) -> void:
@@ -12,9 +13,11 @@ func add_canvas_items(ally_texture : Texture2D, ally_cost : int) -> void:
 		texture_rect.texture = ally_texture
 		texture_rect.modulate = Color.GRAY
 		texture_rect.modulate.a = 0.6
-		texture_rect.scale = Vector2(.8, .8)
+		texture_rect.scale = Vector2(TEXTURE_RECT_SCALE_FACTOR, TEXTURE_RECT_SCALE_FACTOR)
+	
 	if cost_label:
 		cost_label.update(ally_cost)
+		
 	visible = true
 	
 func remove_canvas_items() -> void:
