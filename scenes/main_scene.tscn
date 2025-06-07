@@ -107,15 +107,15 @@ text = "[font_size='70'][b][color='yellow']500[/color][/b][/font_size]"
 horizontal_alignment = 2
 script = ExtResource("7_c1pb6")
 
-[node name="PauseButton" type="Button" parent="."]
-offset_left = -611.0
-offset_top = -317.0
-offset_right = -511.0
-offset_bottom = -217.0
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 2089.0
+offset_top = -324.0
+offset_right = 2189.0
+offset_bottom = -224.0
 theme_override_font_sizes/font_size = 50
-text = "||"
+text = "X"
 script = SubResource("GDScript_rt2n2")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="ally_spawned" from="AllySpawnCanvas" to="." method="_on_canvas_ally_spawned"]
-[connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
