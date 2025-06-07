@@ -4,6 +4,7 @@ extends Node2D
 @onready var health_bar : HealthBar = $CharacterBody2D/HealthBar
 @onready var cooldown : Timer = $Cooldown
 @onready var animated_sprite_2d : AnimatedSprite2D = $CharacterBody2D/AnimatedSprite2D
+@onready var attack_component : AttackComponent = get_node_or_null("AttackComponent")
 
 var attacking : Node2D = null
 
@@ -17,11 +18,10 @@ func _process(delta) -> void :
 		return
 	
 	if cooldown.time_left == 0 && attacking != null:
-		var target_health_component = attacking.get_node_or_null("HealthComponent")
+		var target_health_component : HealthComponent = attacking.get_node_or_null("HealthComponent")
 		
 		if target_health_component:
-			$AttackComponent.deal_damage(target_health_component)
-			
+			attack_component.deal_damage(target_health_component)
 		cooldown.start()
 
 func _on_health_component_died() -> void:

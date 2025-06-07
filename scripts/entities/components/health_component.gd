@@ -5,7 +5,7 @@ signal healed(new_health : int, amount : int)
 signal died()
 
 @export var max_health : int
-@export var health : int
+var health : int
 
 func _ready() -> void:
 	health = max_health

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_mfyrh"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_rwbew"]
 [ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_iet1o"]
-[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/attack_area.tscn" id="9_aub10"]
+[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/entities/components/attack_area.tscn" id="9_aub10"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efa2h"]
 atlas = ExtResource("6_aub10")
@@ -75,6 +75,7 @@ shape = SubResource("RectangleShape2D_ywdfk")
 position = Vector2(1, 0)
 
 [node name="AttackComponent" parent="." instance=ExtResource("6_mfyrh")]
+attack_damage = 100
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_rwbew")]
 max_health = 300

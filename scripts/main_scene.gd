@@ -1,9 +1,9 @@
 extends Node
 
 
-@onready var spawn_manager: Node2D = $EnemySpawnManager
-@onready var base: Base = $Base
-@onready var ally_spawn_canvas: AllySpawnCanvas = $AllySpawnCanvas
+@onready var spawn_manager: Node2D = get_node_or_null("EnemySpawn/EnemySpawnManager")
+@onready var base: Base = get_node_or_null("Base")
+@onready var ally_spawn_canvas: AllySpawnCanvas = get_node_or_null("AllySpawnCanvas")
 @onready var gold_count_label: GoldCountLabel = get_node_or_null("GoldCountLabel")
 @onready var enemy_factory : EnemyFactory = EnemyFactory.new()
 
@@ -37,32 +37,43 @@ func _ready() -> void:
 	for enemy in enemies_dir.get_files():
 		path = enemies_dir.get_current_dir() + "/" + str(enemy)
 		enemies.append(load(path))
+		
+
+func place_ally(index : int) -> void:
+	if placing_ally:
+		placing_ally = false
+		current_ally_type = null
+	else:
+		placing_ally = true
+		current_ally_type = index
 
 func _input(event: InputEvent) -> void:
 	#TODO verificare pentru fiecare tip de aliat nu doar pentru cel cu cheia 1
-	if event.is_action_pressed("1"):
-		if placing_ally:
-			placing_ally = false
-			current_ally_type = null
-		else:
-			placing_ally = true
-			current_ally_type = 1
-			
-	if event.is_action_pressed("2"):
-		if placing_ally:
-			placing_ally = false
-			current_ally_type = null
-		else:
-			placing_ally = true
-			current_ally_type = 2
+	for index in range(1, 3):
+		if event.is_action_pressed(str(index)):
+			place_ally(index)
 		
 	if !ally_spawn_canvas.visible and placing_ally:
 		var ally_scene = allies_dictionary[current_ally_type]
 		var ally = ally_scene.instantiate()
-		var sprite = ally.get_node_or_null("CharacterBody2D/AnimatedSprite2D")
-		var sprite_frame = sprite.sprite_frames.get_frame_texture("default", 0)
+		
+		var sprite_node = ally.get_node_or_null("CharacterBody2D/AnimatedSprite2D")
+
+		if sprite_node == null:
+			sprite_node = ally.get_node_or_null("CharacterBody2D/Sprite2D")
+
+		var sprite_frame : Texture2D = null
+
+		if sprite_node is AnimatedSprite2D:
+			var frames = sprite_node.sprite_frames
+			if frames != null and frames.has_animation("default"):
+				sprite_frame = frames.get_frame_texture("default", 0)
+		elif sprite_node is Sprite2D:
+			sprite_frame = sprite_node.texture
+
 		var cost_component = ally.get_node_or_null("CostComponent")
-		if sprite and cost_component:
+
+		if sprite_frame and cost_component:
 			ally_spawn_canvas.add_canvas_items(sprite_frame, cost_component.cost)
 		ally.queue_free()
 	elif placing_ally == false:
@@ -76,6 +87,8 @@ func _input(event: InputEvent) -> void:
 			var body = ally.get_node_or_null("CharacterBody2D")
 			if body:
 				body.set_target_position(move_to)
+		selected_allies = []
+				
 	if event.is_action("left_mouse") && !ally_hovering:
 		selected_allies = []
 	
@@ -85,6 +98,16 @@ func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float) -> void:
 	if !hovering:
 		var ally = allies_dictionary[current_ally_type].instantiate()
 		ally.position = Vector2(mouse_x, mouse_y)
+		
+		# Flip pe partea stanga
+		if ally.position.x < 353:
+			var cb = ally.get_node_or_null("CharacterBody2D")
+			if  cb.has_node("Sprite2D"):
+				cb.get_node("Sprite2D").flip_h = true
+			elif cb.has_node("AnimatedSprite2D"):
+				cb.get_node("AnimatedSprite2D").flip_h = true
+			
+		
 		var ally_hurtbox = ally.find_child("Hurtbox")
 		ally_hurtbox.mouse_entered.connect(_on_mouse_entered)
 		ally_hurtbox.mouse_entered.connect(_on_ally_mouse_entered.bind(ally))

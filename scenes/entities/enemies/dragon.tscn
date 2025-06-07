@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_ppcb5"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_htr04"]
 [ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_cbvde"]
-[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/attack_area.tscn" id="9_5oure"]
+[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/entities/components/attack_area.tscn" id="9_5oure"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_671wr"]
 atlas = ExtResource("3_5oure")
@@ -65,11 +65,10 @@ sprite_frames = SubResource("SpriteFrames_3673n")
 frame_progress = 0.890603
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, -0.5)
+position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_ywdfk")
 
 [node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("4_671wr")]
-visible = true
 
 [node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("5_0tgij")]
 

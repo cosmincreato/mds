@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://b440y2dak6lja"]
 
-[ext_resource type="Script" uid="uid://y1e426ja33mt" path="res://scripts/ally.gd" id="1_34cd7"]
+[ext_resource type="Script" uid="uid://y1e426ja33mt" path="res://scripts/elf.gd" id="1_34cd7"]
 [ext_resource type="Script" uid="uid://dw5hqqe8dykio" path="res://scripts/character_body_2d.gd" id="2_swutk"]
 [ext_resource type="Texture2D" uid="uid://ccivbo7bm0hki" path="res://assets/ally/elf.png" id="3_34cd7"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="3_xnkg6"]
@@ -70,6 +70,7 @@ shape = SubResource("RectangleShape2D_a0l60")
 modulate = Color(0, 1, 0, 1)
 
 [node name="AttackComponent" parent="." instance=ExtResource("6_u105i")]
+attack_damage = 100
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_f75r3")]
 max_health = 500

@@ -18,6 +18,8 @@ func _ready() -> void:
 			
 	health_component.damage_taken.connect(_on_health_component_damage_taken)
 	health_component.died.connect(_on_health_component_died)
+	if health_bar:
+		health_bar.max_value = health_component.max_health
 	animated_sprite_2d.play()
 
 			
