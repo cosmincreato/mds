@@ -160,6 +160,8 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
 	add_child(enemy)
+	await get_tree().physics_frame
+	enemy.navigation_agent_2d.target_position = enemy.seeking.global_position
 
 func _on_mouse_entered() -> void:
 	hovering = true
