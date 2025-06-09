@@ -75,6 +75,10 @@ shape = SubResource("RectangleShape2D_ywdfk")
 [node name="AttackArea" parent="CharacterBody2D" instance=ExtResource("9_5oure")]
 position = Vector2(-5, 15)
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+avoidance_enabled = true
+debug_enabled = true
+
 [node name="AttackComponent" parent="." instance=ExtResource("6_ppcb5")]
 attack_damage = 200
 

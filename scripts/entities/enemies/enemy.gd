@@ -7,6 +7,7 @@ class_name Enemy extends Node2D
 @onready var cooldown : Timer = $Cooldown
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
 @onready var animated_sprite_2d : AnimatedSprite2D = $CharacterBody2D/AnimatedSprite2D
+@onready var navigation_agent_2d : NavigationAgent2D = $CharacterBody2D/NavigationAgent2D
 
 var base : Node2D = null
 
@@ -52,8 +53,9 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 func _on_attack_area_body_entered(body: Node2D) -> void:
 	if (body.get_parent().is_in_group("allies")):
 		seeking = body
+		navigation_agent_2d.target_position = seeking.global_position
 
 func _on_attack_area_body_exited(body: Node2D) -> void:
 	if (body.get_parent().is_in_group("allies")):
-		print(base)
 		seeking = base
+		navigation_agent_2d.target_position = seeking.global_position
