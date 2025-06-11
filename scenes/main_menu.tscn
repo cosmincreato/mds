@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cb6hllke727um"]
+[gd_scene load_steps=4 format=3 uid="uid://cb6hllke727um"]
 
 [ext_resource type="Script" uid="uid://cpjqhkwu0cv1j" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://b2mlpvuf3hh2i" path="res://assets/title-screen.png" id="2_ekxnf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l6cm7"]
 
@@ -13,15 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l6cm7")
-
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.588235, 1, 1, 1)
 
 [node name="Title" type="Label" parent="."]
 self_modulate = Color(0.109804, 0.145098, 0.45098, 1)
@@ -40,31 +32,6 @@ uppercase = true
 
 [node name="Buttons" type="Node" parent="."]
 
-[node name="ExitButton" type="Button" parent="Buttons"]
-z_index = 2
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -89.0
-offset_top = 80.0
-offset_right = 111.0
-offset_bottom = 140.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_colors/font_disabled_color = Color(0.584314, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.405363, 0.0171434, 0.022097, 1)
-theme_override_colors/font_hover_color = Color(0.443395, 0.107083, 0.0463978, 1)
-theme_override_colors/icon_disabled_color = Color(0.435294, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0.8, 0.52549, 1)
-theme_override_colors/font_color = Color(0.47451, 0.192157, 0.0117647, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0.505882, 1)
-theme_override_font_sizes/font_size = 25
-text = "IEJI"
-
 [node name="PlayButton" type="Button" parent="Buttons"]
 z_index = 2
 anchors_preset = 8
@@ -72,10 +39,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -91.305
-offset_top = -15.5
-offset_right = 108.695
-offset_bottom = 44.5
+offset_left = -306.0
+offset_top = -95.0
+offset_right = 157.0
+offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -87,7 +54,16 @@ theme_override_colors/icon_normal_color = Color(0, 0.8, 0.52549, 1)
 theme_override_colors/font_color = Color(0, 0, 0.952941, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.505882, 1)
 theme_override_font_sizes/font_size = 25
-text = "JUACĂ"
+text = "
+"
+flat = true
 
-[connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -109.0
+offset_top = -4.0
+offset_right = 1263.0
+offset_bottom = 649.0
+texture = ExtResource("2_ekxnf")
+
 [connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_PlayButton_pressed"]
