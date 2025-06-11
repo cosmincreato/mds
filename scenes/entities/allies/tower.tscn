@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccdo5n3d2sl1y"]
+[gd_scene load_steps=11 format=3 uid="uid://ccdo5n3d2sl1y"]
 
 [ext_resource type="Script" uid="uid://cnyuyuwl0n0hl" path="res://scripts/entities/enemies/tower.gd" id="1_e8guy"]
-[ext_resource type="Script" uid="uid://dw5hqqe8dykio" path="res://scripts/character_body_2d.gd" id="2_m381c"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="3_85n2c"]
 [ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="4_wvmqp"]
 [ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="5_dkubr"]
@@ -20,7 +19,6 @@ script = ExtResource("1_e8guy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 scale = Vector2(0.2, 0.2)
-script = ExtResource("2_m381c")
 
 [node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("3_85n2c")]
 

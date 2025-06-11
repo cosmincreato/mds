@@ -115,10 +115,6 @@ func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float) -> void:
 		ally_hurtbox.mouse_entered.connect(_on_ally_mouse_entered.bind(ally))
 		ally_hurtbox.mouse_exited.connect(_on_mouse_exited)
 		ally_hurtbox.mouse_exited.connect(_on_ally_mouse_exited)
-		var ally_collision_shape = ally.find_child("CharacterBody2D")
-		if ally_collision_shape:
-			ally_collision_shape.collision_layer = 1 << 0
-			ally_collision_shape.collision_mask = 1 << 1
 		buy_ally(ally)
 	else:
 		print("Invalid position")
