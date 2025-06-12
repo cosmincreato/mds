@@ -10,25 +10,28 @@
 [ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_iet1o"]
 [ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/entities/components/attack_area.tscn" id="9_aub10"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_efa2h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aub10"]
 atlas = ExtResource("6_aub10")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mfyrh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_efa2h"]
 atlas = ExtResource("6_aub10")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rwbew"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfyrh"]
 atlas = ExtResource("6_aub10")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ywdfk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwbew"]
 atlas = ExtResource("6_aub10")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_6n8kn"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywdfk"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aub10")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_efa2h")
 }, {
@@ -37,9 +40,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rwbew")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ywdfk")
 }],
 "loop": true,
 "name": &"default",
@@ -59,12 +59,11 @@ script = ExtResource("2_ey25l")
 speed = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-position = Vector2(0, -3.72529e-08)
 scale = Vector2(10, 10)
-sprite_frames = SubResource("SpriteFrames_6n8kn")
+sprite_frames = SubResource("SpriteFrames_ywdfk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(0, -0.5)
+position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_ywdfk")
 
 [node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("4_aub10")]
@@ -72,7 +71,7 @@ shape = SubResource("RectangleShape2D_ywdfk")
 [node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("5_efa2h")]
 
 [node name="AttackArea" parent="CharacterBody2D" instance=ExtResource("9_aub10")]
-position = Vector2(1, 0)
+position = Vector2(-5, 15)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
 avoidance_enabled = true

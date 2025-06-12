@@ -10,25 +10,28 @@
 [ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_cbvde"]
 [ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/entities/components/attack_area.tscn" id="9_5oure"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_671wr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oure"]
 atlas = ExtResource("3_5oure")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0tgij"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_671wr"]
 atlas = ExtResource("3_5oure")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ppcb5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tgij"]
 atlas = ExtResource("3_5oure")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_htr04"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppcb5"]
 atlas = ExtResource("3_5oure")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_3673n"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_htr04"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oure")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_671wr")
 }, {
@@ -37,9 +40,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ppcb5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_htr04")
 }],
 "loop": true,
 "name": &"default",
@@ -59,10 +59,9 @@ script = ExtResource("2_cbvde")
 speed = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-position = Vector2(0, -3.72529e-08)
+position = Vector2(0, 1.19209e-06)
 scale = Vector2(10, 10)
-sprite_frames = SubResource("SpriteFrames_3673n")
-frame_progress = 0.890603
+sprite_frames = SubResource("SpriteFrames_htr04")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(0, 15)

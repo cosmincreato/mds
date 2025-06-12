@@ -1,0 +1,90 @@
+[gd_scene load_steps=16 format=3 uid="uid://drsvekk5jym1o"]
+
+[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/entities/enemies/character_body_2d.gd" id="1_6t4li"]
+[ext_resource type="Script" uid="uid://b3rmxqfihpn68" path="res://scripts/entities/enemies/ghoul.gd" id="1_wyhb0"]
+[ext_resource type="Texture2D" uid="uid://c12x8yojsxvgr" path="res://assets/enemy/ghoul.png" id="2_6t4li"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="3_i7w4a"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="4_wixk0"]
+[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/entities/components/attack_area.tscn" id="5_kedbl"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="7_kedbl"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="8_uo8bj"]
+[ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="9_n64o0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kedbl"]
+atlas = ExtResource("2_6t4li")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo8bj"]
+atlas = ExtResource("2_6t4li")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n64o0"]
+atlas = ExtResource("2_6t4li")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04rex"]
+atlas = ExtResource("2_6t4li")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htr04"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kedbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo8bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n64o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04rex")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywdfk"]
+size = Vector2(126, 127)
+
+[node name="Ghoul" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_wyhb0")
+metadata/_custom_type_script = "uid://dpkhuk08hrkp5"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_6t4li")
+speed = 70
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_htr04")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_ywdfk")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("3_i7w4a")]
+
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("4_wixk0")]
+
+[node name="AttackArea" parent="CharacterBody2D" instance=ExtResource("5_kedbl")]
+position = Vector2(-5, 15)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="AttackComponent" parent="." instance=ExtResource("7_kedbl")]
+attack_damage = 100
+
+[node name="HealthComponent" parent="." instance=ExtResource("8_uo8bj")]
+max_health = 650
+
+[node name="Cooldown" parent="." instance=ExtResource("9_n64o0")]
+
+[connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_exited"]
