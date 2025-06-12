@@ -1,5 +1,7 @@
 class_name Base extends Node2D
 
+signal died();
+
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
 @onready var health_bar : HealthBar = get_node_or_null("HealthBar")
 @onready var animated_sprite_2d : AnimatedSprite2D = $AnimatedSprite2D
@@ -29,4 +31,4 @@ func _on_health_component_damage_taken(new_health: int, amount: int) -> void:
 #
 ## Cand HealthComponent semnaleaza ca baza a fost distrusa
 func _on_health_component_died() -> void:
-	print("Game Over")
+	died.emit();
