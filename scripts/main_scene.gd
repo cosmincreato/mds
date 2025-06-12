@@ -21,6 +21,8 @@ var ally_hovering : bool = false
 var placing_ally : bool = false
 var hovered_ally : Node2D = null
 var selected_allies : Array = []
+var time = 0
+var wave_count = 1
 var ALERT_TIMER_SPEED = 3
 
 func _ready() -> void:
@@ -115,10 +117,6 @@ func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float) -> void:
 		ally_hurtbox.mouse_entered.connect(_on_ally_mouse_entered.bind(ally))
 		ally_hurtbox.mouse_exited.connect(_on_mouse_exited)
 		ally_hurtbox.mouse_exited.connect(_on_ally_mouse_exited)
-		var ally_collision_shape = ally.find_child("CharacterBody2D")
-		if ally_collision_shape:
-			ally_collision_shape.collision_layer = 1 << 0
-			ally_collision_shape.collision_mask = 1 << 1
 		buy_ally(ally)
 	else:
 		print("Invalid position")
@@ -141,28 +139,32 @@ func buy_ally(ally : Node2D) -> void:
 
 # Cream trupele inamice in momentul in care timerul atinge 0
 func _on_enemy_spawn_timer_timeout() -> void:
-	var spawn_points = spawn_manager.get_children()
-	var spawn_point = spawn_points.pick_random()
-	var spawn_point_id : String = str(spawn_point.name).replace("SpawnPoint","")
-	print(spawn_point_id)
-	var spawn_alert : TextureRect = get_node_or_null("EnemySpawn/EnemySpawnCanvas/EnemyAlert" + spawn_point_id)
-	if spawn_alert:
-		# Cream un timer special pentru alerta
-		spawn_alert.visible = true
-		await get_tree().create_timer(ALERT_TIMER_SPEED).timeout
-		spawn_alert.visible = false
-	# TODO aici o sa avem un algoritm de spawnat bazat pe wave,
-	#eu doar am pus random ca sa vad ca merge sa spawnam tipuri de inamici
-	var enemy_type = enemy_factory.enemies.keys().pick_random()
-	var enemy = enemy_factory.create_enemy(enemy_type, spawn_point.position)
-	enemy.seeking = base
-	enemy.base = base
-	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
-	enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
-	add_child(enemy)
-	await get_tree().physics_frame
-	enemy.navigation_agent_2d.target_position = enemy.seeking.global_position
-
+	for i in range(0, wave_count):
+		var spawn_points = spawn_manager.get_children()
+		var spawn_point = spawn_points.pick_random()
+		var spawn_point_id : String = str(spawn_point.name).replace("SpawnPoint","")
+		print(spawn_point_id)
+		var spawn_alert : TextureRect = get_node_or_null("EnemySpawn/EnemySpawnCanvas/EnemyAlert" + spawn_point_id)
+		if spawn_alert:
+			# Cream un timer special pentru alerta
+			spawn_alert.visible = true
+			await get_tree().create_timer(ALERT_TIMER_SPEED).timeout
+			spawn_alert.visible = false
+		var enemy_type
+		if wave_count < 3:
+			enemy_type = "Skeleton"
+		else:
+			enemy_type = enemy_factory.enemies.keys().pick_random()
+		var enemy = enemy_factory.create_enemy(enemy_type, spawn_point.position)
+		enemy.seeking = base
+		enemy.base = base
+		enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
+		enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
+		add_child(enemy)
+		await get_tree().physics_frame
+		enemy.navigation_agent_2d.target_position = enemy.seeking.global_position
+	wave_count = wave_count + 1
+	
 func _on_mouse_entered() -> void:
 	hovering = true
 	
@@ -188,3 +190,9 @@ func _on_PauseButton_pressed():
 
 	# Oprește timpul în joc
 	get_tree().paused = true
+
+func _on_timer_timeout() -> void:
+	time = time + 1
+
+func _on_button_pressed() -> void:
+	GameManager.add_gold(100)

@@ -1216,7 +1216,7 @@ scale = Vector2(0.05, 0.05)
 texture = ExtResource("4_18nlu")
 
 [node name="EnemySpawnTimer" type="Timer" parent="EnemySpawn"]
-wait_time = 0.001
+wait_time = 60.0
 autostart = true
 script = ExtResource("5_e1cbu")
 
@@ -1287,16 +1287,7 @@ script = ExtResource("10_6wevv")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[node name="Button" type="Button" parent="."]
-offset_left = 66.0
-offset_top = 367.0
-offset_right = 153.0
-offset_bottom = 398.0
-text = "Skip Wave"
-
 [connection signal="timeout" from="EnemySpawn/EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="ally_spawned" from="AllySpawnCanvas" to="." method="_on_canvas_ally_spawned"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer" to="TimeLabel" method="_on_timer_timeout"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button" to="EnemySpawn/EnemySpawnTimer" method="_on_button_pressed"]

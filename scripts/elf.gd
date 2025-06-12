@@ -12,7 +12,8 @@ func _ready() -> void:
 	if health_bar:
 		health_bar.max_value = health_component.max_health
 	animated_sprite_2d.play()
-		
+	
+
 func _process(delta) -> void :
 	if health_component.health <= 0:
 		return

@@ -69,6 +69,13 @@ shape = SubResource("RectangleShape2D_a0l60")
 [node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("5_lwy06")]
 modulate = Color(0, 1, 0, 1)
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+path_desired_distance = 40.0
+target_desired_distance = 24.0
+avoidance_enabled = true
+radius = 15.0
+debug_enabled = true
+
 [node name="AttackComponent" parent="." instance=ExtResource("6_u105i")]
 attack_damage = 100
 
@@ -80,5 +87,6 @@ max_health = 500
 [node name="Cooldown" parent="." instance=ExtResource("9_32i12")]
 
 [connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="velocity_computed" from="CharacterBody2D/NavigationAgent2D" to="CharacterBody2D" method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="damage_taken" from="HealthComponent" to="." method="_on_health_component_damage_taken"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

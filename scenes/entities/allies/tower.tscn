@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccdo5n3d2sl1y"]
+[gd_scene load_steps=16 format=3 uid="uid://ccdo5n3d2sl1y"]
 
 [ext_resource type="Script" uid="uid://cnyuyuwl0n0hl" path="res://scripts/entities/enemies/tower.gd" id="1_e8guy"]
-[ext_resource type="Script" uid="uid://dw5hqqe8dykio" path="res://scripts/character_body_2d.gd" id="2_m381c"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="3_85n2c"]
-[ext_resource type="Texture2D" uid="uid://iwmndwjfdejc" path="res://assets/base/icon.svg" id="4_wvmqp"]
+[ext_resource type="Texture2D" uid="uid://c38vvreyeks4m" path="res://assets/ally/animation_tower.png" id="4_13geb"]
 [ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="5_dkubr"]
 [ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_tua8u"]
 [ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_1pj48"]
@@ -15,18 +14,49 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_e8guy"]
 radius = 503.254
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8guy"]
+atlas = ExtResource("4_13geb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m381c"]
+atlas = ExtResource("4_13geb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85n2c"]
+atlas = ExtResource("4_13geb")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvmqp"]
+atlas = ExtResource("4_13geb")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dkubr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8guy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m381c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85n2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvmqp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Tower" type="Node2D" groups=["allies"]]
 script = ExtResource("1_e8guy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 scale = Vector2(0.2, 0.2)
-script = ExtResource("2_m381c")
 
 [node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("3_85n2c")]
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-modulate = Color(0.455867, 0.669248, 1, 1)
-texture = ExtResource("4_wvmqp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(0, 1)
@@ -41,8 +71,14 @@ modulate = Color(0, 1, 0, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/AttackArea"]
 shape = SubResource("CircleShape2D_e8guy")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_dkubr")
+autoplay = "default"
+frame_progress = 0.690103
+
 [node name="AttackComponent" parent="." instance=ExtResource("6_tua8u")]
-attack_damage = 1000
+attack_damage = 500
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_1pj48")]
 max_health = 500
