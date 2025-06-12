@@ -1,4 +1,4 @@
-extends Node2D
+class_name Elf extends Node2D
 
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
 @onready var health_bar : HealthBar = $CharacterBody2D/HealthBar

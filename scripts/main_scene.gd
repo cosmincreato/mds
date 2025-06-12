@@ -1,4 +1,4 @@
-extends Node
+class_name MainScene extends Node
 
 
 @onready var spawn_manager: Node2D = get_node_or_null("EnemySpawn/EnemySpawnManager")
