@@ -1,0 +1,93 @@
+[gd_scene load_steps=16 format=3 uid="uid://bh1trtddhs7ow"]
+
+[ext_resource type="Script" uid="uid://cpqn2bfg7lovo" path="res://scripts/entities/enemies/character_body_2d.gd" id="1_8qagj"]
+[ext_resource type="Script" uid="uid://b4kjakxcadjwm" path="res://scripts/entities/enemies/boss.gd" id="1_fam3v"]
+[ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="3_5ltve"]
+[ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="4_uq1c4"]
+[ext_resource type="Texture2D" uid="uid://llpdh7l7uowr" path="res://assets/enemy/PoisonDrake.png" id="5_8qagj"]
+[ext_resource type="PackedScene" uid="uid://b1d2i3175mpwp" path="res://scenes/entities/components/attack_area.tscn" id="5_lwjnx"]
+[ext_resource type="PackedScene" uid="uid://dmjc7gmk56v7w" path="res://scenes/entities/components/attack_component.tscn" id="6_74luh"]
+[ext_resource type="PackedScene" uid="uid://dwkjaugy7ph2v" path="res://scenes/entities/components/health_component.tscn" id="7_ga3to"]
+[ext_resource type="PackedScene" uid="uid://bpgb64atyovx1" path="res://scenes/cooldown.tscn" id="8_2ke4x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywdfk"]
+size = Vector2(126, 127)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fam3v"]
+atlas = ExtResource("5_8qagj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ltve"]
+atlas = ExtResource("5_8qagj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq1c4"]
+atlas = ExtResource("5_8qagj")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwjnx"]
+atlas = ExtResource("5_8qagj")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_74luh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fam3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ltve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq1c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwjnx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Boss" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_fam3v")
+metadata/_custom_type_script = "uid://dpkhuk08hrkp5"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_8qagj")
+speed = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_ywdfk")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("3_5ltve")]
+offset_top = -200.0
+offset_bottom = -170.0
+
+[node name="Hurtbox" parent="CharacterBody2D" instance=ExtResource("4_uq1c4")]
+
+[node name="AttackArea" parent="CharacterBody2D" instance=ExtResource("5_lwjnx")]
+position = Vector2(-5, 15)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+scale = Vector2(20, 20)
+sprite_frames = SubResource("SpriteFrames_74luh")
+autoplay = "default"
+
+[node name="AttackComponent" parent="." instance=ExtResource("6_74luh")]
+attack_damage = 400
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_ga3to")]
+max_health = 800
+
+[node name="Cooldown" parent="." instance=ExtResource("8_2ke4x")]
+
+[connection signal="body_entered" from="CharacterBody2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/AttackArea" to="." method="_on_attack_area_body_exited"]
