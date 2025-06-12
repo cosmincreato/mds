@@ -34,7 +34,8 @@ func _ready() -> void:
 		path = allies_dir.get_current_dir() + "/" + str(ally)
 		allies_dictionary[index] = load(path)
 		index += 1
-
+	
+	base.died.connect(_on_base_died)
 	base.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	base.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
 	
@@ -196,3 +197,8 @@ func _on_timer_timeout() -> void:
 
 func _on_button_pressed() -> void:
 	GameManager.add_gold(100)
+	
+func _on_base_died() -> void:
+	var main_menu = load("res://scenes/main_menu.tscn").instantiate()
+	get_tree().root.add_child(main_menu)
+	queue_free()

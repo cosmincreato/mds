@@ -15,21 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l6cm7")
 
-[node name="Title" type="Label" parent="."]
-self_modulate = Color(0.109804, 0.145098, 0.45098, 1)
-layout_mode = 2
-offset_left = 350.0
-offset_top = 60.0
-offset_right = 818.0
-offset_bottom = 127.0
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 48
-text = "Giulești defensive"
-horizontal_alignment = 1
-justification_flags = 171
-uppercase = true
-
 [node name="Buttons" type="Node" parent="."]
 
 [node name="PlayButton" type="Button" parent="Buttons"]
@@ -54,6 +39,31 @@ theme_override_colors/icon_normal_color = Color(0, 0.8, 0.52549, 1)
 theme_override_colors/font_color = Color(0, 0, 0.952941, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.505882, 1)
 theme_override_font_sizes/font_size = 25
+text = "
+"
+flat = true
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -109.0
+offset_top = -4.0
+offset_right = 1263.0
+offset_bottom = 649.0
+texture = ExtResource("2_ekxnf")
+
+[node name="Title" type="Label" parent="."]
+self_modulate = Color(0.862745, 0.266667, 0.0156863, 1)
+layout_mode = 2
+offset_left = 259.0
+offset_top = 96.0
+offset_right = 727.0
+offset_bottom = 163.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 48
+text = "Featherfront"
+horizontal_alignment = 1
+justification_flags = 171
+uppercase = true
 
 [connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_PlayButton_pressed"]
