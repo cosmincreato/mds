@@ -154,16 +154,16 @@ func _on_enemy_spawn_timer_timeout() -> void:
 		var enemy_type
 		if wave_count < 3:
 			enemy_type = "Skeleton"
+		elif wave_count % 10 == 0 and wave_count != 0:
+			enemy_type = "Boss"
+			instantiate_enemy(enemy_type, spawn_point)
+			wave_count = wave_count + 1
+			break
 		else:
-			enemy_type = enemy_factory.enemies.keys().pick_random()
+			enemy_type = enemy_factory.enemies.keys().filter(func(k): return k != "Boss").pick_random()
+		
 		var enemy = enemy_factory.create_enemy(enemy_type, spawn_point.position)
-		enemy.seeking = base
-		enemy.base = base
-		enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
-		enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
-		add_child(enemy)
-		await get_tree().physics_frame
-		enemy.navigation_agent_2d.target_position = enemy.seeking.global_position
+		instantiate_enemy(enemy_type, spawn_point)
 	wave_count = wave_count + 1
 	
 func _on_mouse_entered() -> void:
@@ -202,3 +202,13 @@ func _on_base_died() -> void:
 	var main_menu = load("res://scenes/main_menu.tscn").instantiate()
 	get_tree().root.add_child(main_menu)
 	queue_free()
+
+func instantiate_enemy(enemy_type, spawn_point) -> void:
+	var enemy = enemy_factory.create_enemy(enemy_type, spawn_point.position)
+	enemy.seeking = base
+	enemy.base = base
+	enemy.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
+	enemy.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
+	add_child(enemy)
+	await get_tree().physics_frame
+	enemy.navigation_agent_2d.target_position = enemy.seeking.global_position
