@@ -74,7 +74,6 @@ path_desired_distance = 40.0
 target_desired_distance = 24.0
 avoidance_enabled = true
 radius = 15.0
-debug_enabled = true
 
 [node name="AttackComponent" parent="." instance=ExtResource("6_u105i")]
 attack_damage = 100
