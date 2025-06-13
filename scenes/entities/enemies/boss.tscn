@@ -73,7 +73,6 @@ position = Vector2(-5, 15)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
 avoidance_enabled = true
-debug_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 scale = Vector2(20, 20)

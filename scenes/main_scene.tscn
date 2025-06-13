@@ -1288,6 +1288,7 @@ script = ExtResource("10_6wevv")
 autostart = true
 
 [node name="Button" type="Button" parent="."]
+z_index = 4
 offset_left = 66.0
 offset_top = 367.0
 offset_right = 153.0
