@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dbpbfvweqfc8o" path="res://scripts/ui/gold_count_label.gd" id="7_c1pb6"]
 [ext_resource type="Texture2D" uid="uid://npmp2gtlhucg" path="res://assets/tileset/Floors_Tiles.png" id="7_c16ls"]
 [ext_resource type="Texture2D" uid="uid://cavy3hko0kkxd" path="res://assets/tileset/Vegetation.png" id="9_c1pb6"]
-[ext_resource type="Script" uid="uid://c0u7ruydi4kav" path="res://scripts/timer_label.gd" id="10_6wevv"]
+[ext_resource type="Script" path="res://scripts/timer_label.gd" id="10_6wevv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_18nlu"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)

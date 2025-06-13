@@ -26,7 +26,6 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 # Cand HealthComponent semnaleaza ca baza ca si-a luat damage
 func _on_health_component_damage_taken(new_health: int, amount: int) -> void:
 	if health_bar:
-		print(amount, " damage taken")
 		health_bar.update(new_health)
 #
 ## Cand HealthComponent semnaleaza ca baza a fost distrusa

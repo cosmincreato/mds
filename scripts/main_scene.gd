@@ -1,29 +1,43 @@
 class_name MainScene extends Node
 
 
+# Variabile copil care trebuie luate atunci cand intreg tree-ul
+# este gata de executie
 @onready var spawn_manager: Node2D = get_node_or_null("EnemySpawn/EnemySpawnManager")
 @onready var base: Base = get_node_or_null("Base")
 @onready var ally_spawn_canvas: AllySpawnCanvas = get_node_or_null("AllySpawnCanvas")
 @onready var gold_count_label: GoldCountLabel = get_node_or_null("GoldCountLabel")
-@onready var enemy_factory : EnemyFactory = EnemyFactory.new()
 
-var pause_menu_path := "res://scenes/pause_menu.tscn"
+# Constanta pentru durata indicatorului de spawnat inamici
+const ALERT_TIMER_SPEED = 3
+
+var pause_menu_scene := "res://scenes/pause_menu.tscn"
+
+# Directoarele pentru entitati
 var enemies_dir = DirAccess.open("res://scenes/entities/enemies")
 var allies_dir = DirAccess.open("res://scenes/entities/allies/")
-var current_ally_type = null  # Tipul curent de ally (1 = Ally, 2 = Tower)
 
+# Tipul curent de ally (1 = Ally, 2 = Tower)
+var current_ally_type = null
 
-var pause_menu_instance : Node
-var enemies := []
+# Dictionar cu aliati pentru accesare rapida la instantieri
 var allies_dictionary : Dictionary = {}
+
+# Variabile ajutatoare pentru instantierea aliatilor
 var hovering : bool = false
 var ally_hovering : bool = false
 var placing_ally : bool = false
+
+# Variabile pentru mutarea aliatilor pe harta
 var hovered_ally : Node2D = null
 var selected_allies : Array = []
+
+# Factory pentru instantierea inamicilor
+var enemy_factory : EnemyFactory = EnemyFactory.new()
+
+# Variabile pentru logica spawnarii inamicilor
 var time = 0
 var wave_count = 1
-var ALERT_TIMER_SPEED = 3
 
 func _ready() -> void:
 	# Cream un dictionar in care retinem toate locatiile din fisiere
@@ -35,15 +49,13 @@ func _ready() -> void:
 		allies_dictionary[index] = load(path)
 		index += 1
 	
+	# Conectam semnalele copiilor catre scena principala
 	base.died.connect(_on_base_died)
 	base.find_child("Hurtbox").mouse_entered.connect(_on_mouse_entered)
 	base.find_child("Hurtbox").mouse_exited.connect(_on_mouse_exited)
-	
-	for enemy in enemies_dir.get_files():
-		path = enemies_dir.get_current_dir() + "/" + str(enemy)
-		enemies.append(load(path))
 		
 
+# Setarea variabilelor daca player-ul apasa tastele 1 sau 2 de spawnat
 func place_ally(index : int) -> void:
 	if placing_ally:
 		placing_ally = false
@@ -53,8 +65,7 @@ func place_ally(index : int) -> void:
 		current_ally_type = index
 
 func _input(event: InputEvent) -> void:
-	#TODO verificare pentru fiecare tip de aliat nu doar pentru cel cu cheia 1
-	for index in range(1, 3):
+	for index in range(1, 2):
 		if event.is_action_pressed(str(index)):
 			place_ally(index)
 		
@@ -122,12 +133,14 @@ func _on_canvas_ally_spawned(mouse_x: float, mouse_y: float) -> void:
 	else:
 		print("Invalid position")
 
+# Verificare daca player-ul poate cumpara o unitate
 func can_afford_ally(ally : Node2D) -> bool:
 	var cost_component = ally.get_node_or_null("CostComponent")
 	if cost_component:
 		return GameManager.gold >= cost_component.cost
 	return true
 	
+# Player-ul cumpara o unitate
 func buy_ally(ally : Node2D) -> void:
 	if can_afford_ally(ally):
 		var cost_component = ally.get_node_or_null("CostComponent")
@@ -166,43 +179,56 @@ func _on_enemy_spawn_timer_timeout() -> void:
 		instantiate_enemy(enemy_type, spawn_point)
 	wave_count = wave_count + 1
 	
+
+# Daca player-ul da hover peste o unitate deja existenta, semnalam
 func _on_mouse_entered() -> void:
 	hovering = true
+	
 	
 func _on_mouse_exited() -> void:
 	hovering = false
 	
+	
+# Daca player-ul player-ul da hover peste un aliat deja existent pentru a-l muta, semnalam
 func _on_ally_mouse_entered(ally : Node2D) -> void:
 	ally_hovering = true
 	hovered_ally = ally
 	
+	
 func _on_ally_mouse_exited() -> void:
 	ally_hovering = false
 	hovered_ally = null
+	
 	
 func remove_from_selected(ally: Node2D) -> void:
 	selected_allies.erase(ally)
 
 
 func _on_PauseButton_pressed():
-	# Creează și adaugă meniul de pauză
-	pause_menu_instance = load(pause_menu_path).instantiate()
-	get_tree().root.add_child(pause_menu_instance)
+	var pause_menu : Node = load(pause_menu_scene).instantiate()
+	get_tree().root.add_child(pause_menu)
 
-	# Oprește timpul în joc
 	get_tree().paused = true
 
+
+# Crestem timpul din joc
 func _on_timer_timeout() -> void:
 	time = time + 1
 
+
+# Cand dam skip la wave
 func _on_button_pressed() -> void:
 	GameManager.add_gold(100)
 	
+	
+# Cand baza moare si jocul se termina
 func _on_base_died() -> void:
 	var main_menu = load("res://scenes/main_menu.tscn").instantiate()
 	get_tree().root.add_child(main_menu)
 	queue_free()
 
+
+# Instantiem inamici folosind factory
 func instantiate_enemy(enemy_type, spawn_point) -> void:
 	var enemy = enemy_factory.create_enemy(enemy_type, spawn_point.position)
 	enemy.seeking = base
