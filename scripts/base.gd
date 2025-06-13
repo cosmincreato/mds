@@ -1,5 +1,7 @@
 class_name Base extends Node2D
 
+@export var main_menu_path := "res://scenes/main_menu.tscn"
+
 @onready var health_component : HealthComponent = get_node_or_null("HealthComponent")
 @onready var health_bar : HealthBar = get_node_or_null("HealthBar")
 
