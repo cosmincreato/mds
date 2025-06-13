@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://ccdo5n3d2sl1y"]
 
-[ext_resource type="Script" uid="uid://cnyuyuwl0n0hl" path="res://scripts/entities/enemies/tower.gd" id="1_e8guy"]
+[ext_resource type="Script" uid="uid://cnyuyuwl0n0hl" path="res://scripts/entities/allies/tower.gd" id="1_e8guy"]
 [ext_resource type="PackedScene" uid="uid://blnbp4jhyld43" path="res://scenes/entities/components/hurtbox.tscn" id="3_85n2c"]
 [ext_resource type="Texture2D" uid="uid://c38vvreyeks4m" path="res://assets/ally/animation_tower.png" id="4_13geb"]
 [ext_resource type="PackedScene" uid="uid://cpflaq3jtiks" path="res://scenes/entities/components/health_bar.tscn" id="5_dkubr"]
