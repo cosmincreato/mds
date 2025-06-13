@@ -4,7 +4,7 @@
 
 ## Cerinte
 - [User Stories](https://trello.com/b/TZvDQAYz/development)
-- [State Diagram](prezentare/class%20diagram.png)
+- [State Diagram](prezentare/state%20diagram.jpeg)
 - [Class Diagram](prezentare/class%20diagram.png)
 - Source control cu git
 - [Teste automate](scripts/tests)
